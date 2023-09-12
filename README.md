@@ -6,5 +6,10 @@ To build the basic structure, I followed the YouTube playlist on Little Vulkan E
 https://www.youtube.com/watch?v=Y9U9IE0gVHA&list=PL8327DO66nu9qYVKLDmdLW_84-yE4auCR
 
 # Image:
-Below is the image I am trying to replicate using Vulkan.  
+## Below is the image I am trying to replicate using Vulkan.  
 
+
+![wizard.jpg](wizard.jpg)  
+
+## Below is my 2d Pixel image created in Vulkan:  
+![mywiz.jpg](mywiz.jpg)
