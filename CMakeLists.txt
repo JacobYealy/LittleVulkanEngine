@@ -1,4 +1,3 @@
-
 #Let me know if you want the windows version, is based off how he
 #has the code organized in the videos.
 cmake_minimum_required(VERSION 3.24)
