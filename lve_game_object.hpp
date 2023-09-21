@@ -22,9 +22,10 @@ namespace lve {
                                   {-s, c}};
             glm::mat2 scaleMat{{scale.x, 0.0f},
                                {0.0f,    scale.y}};
-            return rotationMat*scaleMat;
+            return rotationMat * scaleMat;
         };
     };
+
     class LveGameObject {
     public:
         using id_t = unsigned int;
@@ -44,6 +45,9 @@ namespace lve {
         std::shared_ptr<LveModel> model{};
         glm::vec3 color{};
         Transform2dComponent transform2d{};
+
+        // Add the clockwise property
+        bool clockwise = true;
 
     private:
         LveGameObject(id_t id) : id(id) {}
