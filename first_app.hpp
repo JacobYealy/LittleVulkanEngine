@@ -31,8 +31,6 @@ namespace lve {
 
     private:
         void loadGameObjects();
-        void addPixel(float i, float j, glm::vec3 color, std::vector<LveModel::Vertex>& vertices);  // Newly added
-        void loadModels();  // Newly added
 
         LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
         LveDevice lveDevice{lveWindow};

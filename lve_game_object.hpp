@@ -6,26 +6,28 @@
 #define VULKANTEST_LVE_GAME_OBJECT_HPP
 
 #include "lve_model.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 
 namespace lve {
 
-    struct Transform2dComponent {
-        glm::vec2 translation{};
-        glm::vec2 scale{1.0f, 1.0f};
-        float rotation{0.0f};
+    struct TransformComponent {
+        glm::vec3 translation{};
+        glm::vec3 scale{1.0f, 1.0f, 1.0f};
+        glm::vec3 rotation{0.0f};
 
-        glm::mat2 mat2() {
-            const float s = sin(rotation);
-            const float c = cos(rotation);
-            glm::mat2 rotationMat{{c, s},
-                                  {-s, c}};
-            glm::mat2 scaleMat{{scale.x, 0.0f},
-                               {0.0f,    scale.y}};
-            return rotationMat * scaleMat;
+        // Need to go over base form of each in class.
+        // Need to show standard rotation matrix found in most books.
+        glm::mat4 mat4() {
+            glm::mat4 matrix{1.0f};
+            matrix = glm::translate(matrix, translation);
+            matrix = glm::rotate(matrix, rotation.x, glm::vec3{1.0f, 0.0f, 0.0f});
+            matrix = glm::rotate(matrix, rotation.y, glm::vec3{0.0f, 1.0f, 0.0f});
+            matrix = glm::rotate(matrix, rotation.z, glm::vec3{0.0f, 0.0f, 1.0f});
+            matrix = glm::scale(matrix, scale);
+            return matrix;
         };
     };
-
     class LveGameObject {
     public:
         using id_t = unsigned int;
@@ -44,10 +46,7 @@ namespace lve {
 
         std::shared_ptr<LveModel> model{};
         glm::vec3 color{};
-        Transform2dComponent transform2d{};
-
-        // Add the clockwise property
-        bool clockwise = true;
+        TransformComponent transform{};
 
     private:
         LveGameObject(id_t id) : id(id) {}
