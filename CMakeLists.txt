@@ -51,7 +51,10 @@ set(MY_SHADERS ${SPV_SHADERS})
 
 
 #Note we don’t need to bother with any of the .h or .hpp files.
-set(LVE_INCLUDES first_app.cpp lve_window.cpp lve_device.cpp lve_swap_chain.cpp lve_pipeline.cpp lve_model.cpp lve_renderer.cpp simple_render_system.cpp)
+set(LVE_INCLUDES first_app.cpp lve_window.cpp lve_device.cpp lve_swap_chain.cpp lve_pipeline.cpp lve_model.cpp lve_renderer.cpp simple_render_system.cpp
+        lve_camera.cpp keyboard_movement_controller.cpp)
+
+
 #At some point he will add a systems directory to break up
 #the organization of the files, that will add new complexity to this
 #file. Luckily not much complexity.
@@ -59,4 +62,6 @@ add_executable(CG main.cpp ${LVE_INCLUDES} ${MY_SHADERS})
 target_sources(CG PRIVATE main.cpp)
 #We don't use the glm libraries till after video 8.
 target_link_libraries(CG PRIVATE Vulkan::Vulkan glm::glm ${GLFW_LIBRARIES})
+
+
 

@@ -118,6 +118,20 @@ build CMakeFiles/CG.dir/simple_render_system.cpp.o: CXX_COMPILER__CG_Debug /home
   OBJECT_DIR = CMakeFiles/CG.dir
   OBJECT_FILE_DIR = CMakeFiles/CG.dir
 
+build CMakeFiles/CG.dir/lve_camera.cpp.o: CXX_COMPILER__CG_Debug /home/jy0441/CG/transforms/lve_camera.cpp || cmake_object_order_depends_target_CG
+  DEP_FILE = CMakeFiles/CG.dir/lve_camera.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -isystem /usr/lib
+  OBJECT_DIR = CMakeFiles/CG.dir
+  OBJECT_FILE_DIR = CMakeFiles/CG.dir
+
+build CMakeFiles/CG.dir/keyboard_movement_controller.cpp.o: CXX_COMPILER__CG_Debug /home/jy0441/CG/transforms/keyboard_movement_controller.cpp || cmake_object_order_depends_target_CG
+  DEP_FILE = CMakeFiles/CG.dir/keyboard_movement_controller.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -isystem /usr/lib
+  OBJECT_DIR = CMakeFiles/CG.dir
+  OBJECT_FILE_DIR = CMakeFiles/CG.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CG
@@ -126,7 +140,7 @@ build CMakeFiles/CG.dir/simple_render_system.cpp.o: CXX_COMPILER__CG_Debug /home
 #############################################
 # Link the executable CG
 
-build CG: CXX_EXECUTABLE_LINKER__CG_Debug CMakeFiles/CG.dir/main.cpp.o CMakeFiles/CG.dir/first_app.cpp.o CMakeFiles/CG.dir/lve_window.cpp.o CMakeFiles/CG.dir/lve_device.cpp.o CMakeFiles/CG.dir/lve_swap_chain.cpp.o CMakeFiles/CG.dir/lve_pipeline.cpp.o CMakeFiles/CG.dir/lve_model.cpp.o CMakeFiles/CG.dir/lve_renderer.cpp.o CMakeFiles/CG.dir/simple_render_system.cpp.o | /usr/lib/x86_64-linux-gnu/libvulkan.so
+build CG: CXX_EXECUTABLE_LINKER__CG_Debug CMakeFiles/CG.dir/main.cpp.o CMakeFiles/CG.dir/first_app.cpp.o CMakeFiles/CG.dir/lve_window.cpp.o CMakeFiles/CG.dir/lve_device.cpp.o CMakeFiles/CG.dir/lve_swap_chain.cpp.o CMakeFiles/CG.dir/lve_pipeline.cpp.o CMakeFiles/CG.dir/lve_model.cpp.o CMakeFiles/CG.dir/lve_renderer.cpp.o CMakeFiles/CG.dir/simple_render_system.cpp.o CMakeFiles/CG.dir/lve_camera.cpp.o CMakeFiles/CG.dir/keyboard_movement_controller.cpp.o | /usr/lib/x86_64-linux-gnu/libvulkan.so
   FLAGS = -g
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libvulkan.so  -lglfw
   OBJECT_DIR = CMakeFiles/CG.dir
