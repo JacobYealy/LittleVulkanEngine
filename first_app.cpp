@@ -22,7 +22,7 @@ namespace lve {
 
         // Initialize the viewerObject's position
         auto viewerObject = LveGameObject::createGameObject();
-        viewerObject.transform.translation = {0.0f, -5.0f, 2.5f};
+        viewerObject.transform.translation = {3.0f, 3.0f, -5.0f};
 
         KeyboardMovementController cameraController{};
 
