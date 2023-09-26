@@ -20,34 +20,47 @@ namespace lve {
 
     /* Main application loop */
     void FirstApp::run() {
-        // Create simple render system
         SimpleRenderSystem simpleRenderSystem{lveDevice, lveRenderer.getSwapChainRenderPass()};
-        LveCamera camera{};  // Initialize camera
+        LveCamera camera{};
 
         // Initialize the viewerObject's position
         auto viewerObject = LveGameObject::createGameObject();
         viewerObject.transform.translation = {3.0f, 3.0f, -5.0f};
 
-        KeyboardMovementController cameraController{}; // For moving camera with keyboard
+        KeyboardMovementController cameraController{};
 
-        // Timing data for spinning functionality
         auto currentTime = std::chrono::high_resolution_clock::now();
+
+        // State variables for R key rotation behavior
+        float accumulatedRotation = 0.0f;  // Accumulator for total rotation done
+        bool rotating = false;             // Flag to indicate if rotation is in progress
 
         while (!lveWindow.shouldClose()) {
             glfwPollEvents();
 
-            // Time calculations for frame-dependent movement
             auto newTime = std::chrono::high_resolution_clock::now();
             const float spinSpeed = glm::radians(90.0f);  // 90 degrees per second
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
-            // Press 'R' to rotate around the image!
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_R) == GLFW_PRESS) {
+            // Handle 'R' key press for starting the rotation
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_R) == GLFW_PRESS && !rotating) {
+                rotating = true;      // Set the rotating flag to true
+                accumulatedRotation = 0.0f;  // Reset accumulated rotation
+            }
+
+            if (rotating) {
                 glm::vec3 objectPosition = {5.0f, 0.0f, 0.0f}; // Setting object position to the origin
                 glm::vec3 relativePosition = viewerObject.transform.translation - objectPosition;
 
                 float angle = spinSpeed * frameTime;
+                accumulatedRotation += angle;  // Add to our accumulator
+
+                if (accumulatedRotation >= glm::radians(360.0f)) {  // Check if a full rotation is done
+                    rotating = false;  // Stop rotating
+                    angle -= (accumulatedRotation - glm::radians(360.0f));  // Adjust to ensure only 360 degrees in total
+                }
+
                 glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f));
                 relativePosition = rotation * glm::vec4(relativePosition, 1.0f);
 
@@ -58,15 +71,14 @@ namespace lve {
 
                 camera.setViewTarget(viewerObject.transform.translation, newTarget, upVector);
             }
-            // Default camera movement using keyboard
             else {
                 cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
                 camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
             }
+
             float aspect = lveRenderer.getAspectRatio();
             camera.setPerspectiveProjection(glm::radians(120.f), aspect, 0.1f, 10.f);
 
-            // Render command
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
                 simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
@@ -74,8 +86,10 @@ namespace lve {
                 lveRenderer.endFrame();
             }
         }
+
         vkDeviceWaitIdle(lveDevice.device());
     }
+
 
     /* Function to create a colored cube model */
     std::unique_ptr<LveModel> createColoredCubeModel(LveDevice &device, glm::vec3 color) {
