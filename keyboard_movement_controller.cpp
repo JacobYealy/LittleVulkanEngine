@@ -57,5 +57,17 @@ namespace lve {
         if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon()) {
             gameObject.transform.translation += (moveSpeed * dt * glm::normalize(moveDir));
         }
+
+        // Handle camera spinning
+        static bool isSpinning = false; // to keep track if spinning has been initiated
+
+        if (glfwGetKey(window, keys.spinKey) == GLFW_PRESS) {
+            isSpinning = !isSpinning;  // Toggle spinning mode
+        }
+
+        if(isSpinning) {
+            float spinSpeed = 1.0f;  // Define a suitable spinning speed
+            gameObject.transform.rotation.y += spinSpeed * dt;
+        }
     }
 }

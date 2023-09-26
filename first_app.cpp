@@ -32,14 +32,36 @@ namespace lve {
             glfwPollEvents();
 
             auto newTime = std::chrono::high_resolution_clock::now();
+            const float spinSpeed = glm::radians(90.0f);  // 90 degrees per second
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
-            cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
-            camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_R) == GLFW_PRESS) {
+                glm::vec3 objectPosition = {5.0f, 0.0f, 0.0f}; // Setting object position to the origin
+                glm::vec3 relativePosition = viewerObject.transform.translation - objectPosition;
+
+                float angle = spinSpeed * frameTime;
+                glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f));
+                relativePosition = rotation * glm::vec4(relativePosition, 1.0f);
+
+                viewerObject.transform.translation = objectPosition + glm::vec3(relativePosition);
+
+                glm::vec3 newTarget = objectPosition;
+                glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);  // fixed up-vector for now
+
+                camera.setViewTarget(viewerObject.transform.translation, newTarget, upVector);
+            }
+
+
+
+            else {
+                cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
+                camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+            }
 
             float aspect = lveRenderer.getAspectRatio();
             camera.setPerspectiveProjection(glm::radians(100.f), aspect, 0.1f, 10.f);
+
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
                 simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);

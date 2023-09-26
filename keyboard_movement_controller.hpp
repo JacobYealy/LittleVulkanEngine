@@ -13,6 +13,7 @@ namespace lve {
 
     public:
         struct KeyMappings {
+            int spinKey = GLFW_KEY_R; // for spinning the camera
             int moveLeft = GLFW_KEY_A;
             int moveRight = GLFW_KEY_D;
             int moveForward = GLFW_KEY_W;
