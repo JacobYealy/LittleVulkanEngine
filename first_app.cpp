@@ -18,7 +18,23 @@ namespace lve {
     /* Destructor */
     FirstApp::~FirstApp() {}
 
-    /* Main application loop */
+    /**
+ * @function run
+ * @brief Main loop of the application, responsible for rendering and handling user input.
+ *
+ * This function manages the main execution flow, performing tasks like:
+ * - Polling for window events.
+ * - Updating camera and viewer object positions based on user input.
+ * - Executing the render pipeline.
+ *
+ * Rotation functionality:
+ * - When the 'R' key is pressed, the viewer object begins to rotate around a fixed object.
+ * - The viewer object completes a full 360-degree rotation around the object and then stops.
+ * - During the rotation, other camera controls are locked to ensure smooth transition.
+ * - The rotation speed is set to 90 degrees per second, ensuring a complete rotation in 4 seconds.
+ *
+ * @return void
+ */
     void FirstApp::run() {
         SimpleRenderSystem simpleRenderSystem{lveDevice, lveRenderer.getSwapChainRenderPass()};
         LveCamera camera{};
@@ -147,6 +163,23 @@ namespace lve {
         return std::make_unique<LveModel>(device, vertices);
     }
 
+    /**
+ * @function loadGameObjects
+ * @brief Populates the game scene with colored cube objects based on a predefined color grid.
+ *
+ * The function constructs game objects in the scene using two primary elements:
+ * 1. A color lookup map that defines RGB color values based on unique integer keys.
+ * 2. A 2D color grid that dictates the layout of the colored cubes in the scene.
+ *
+ * Functionality:
+ * - The colorGrid defines the layout of the scene where each cell represents a colored cube.
+ * - The color of each cube is determined by mapping its integer value in the colorGrid to the RGB value from colorLookup.
+ * - Consecutive blocks of the same color in a row are merged to form a larger cube, optimizing the number of game objects in the scene.
+ * - The position and scale of each cube (or merged block of cubes) are calculated based on its placement and width in the colorGrid.
+ * - Once the cubes are defined with their color, position, and scale, they are added to the gameObjects list for rendering.
+ *
+ * @return void
+ */
     void FirstApp::loadGameObjects() {
         std::map<int, glm::vec3> colorLookup = {
                 {1, {0.0f,  1.0f,  1.0f}},
