@@ -10,32 +10,39 @@
 #include "keyboard_movement_controller.hpp"
 
 namespace lve {
+    /* Constructor */
     FirstApp::FirstApp() {
-        loadGameObjects();
+        loadGameObjects();  // Load all game objects during initialization
     }
 
+    /* Destructor */
     FirstApp::~FirstApp() {}
 
+    /* Main application loop */
     void FirstApp::run() {
+        // Create simple render system
         SimpleRenderSystem simpleRenderSystem{lveDevice, lveRenderer.getSwapChainRenderPass()};
-        LveCamera camera{};
+        LveCamera camera{};  // Initialize camera
 
         // Initialize the viewerObject's position
         auto viewerObject = LveGameObject::createGameObject();
         viewerObject.transform.translation = {3.0f, 3.0f, -5.0f};
 
-        KeyboardMovementController cameraController{};
+        KeyboardMovementController cameraController{}; // For moving camera with keyboard
 
+        // Timing data for spinning functionality
         auto currentTime = std::chrono::high_resolution_clock::now();
 
         while (!lveWindow.shouldClose()) {
             glfwPollEvents();
 
+            // Time calculations for frame-dependent movement
             auto newTime = std::chrono::high_resolution_clock::now();
             const float spinSpeed = glm::radians(90.0f);  // 90 degrees per second
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
+            // Press 'R' to rotate around the image!
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_R) == GLFW_PRESS) {
                 glm::vec3 objectPosition = {5.0f, 0.0f, 0.0f}; // Setting object position to the origin
                 glm::vec3 relativePosition = viewerObject.transform.translation - objectPosition;
@@ -47,21 +54,19 @@ namespace lve {
                 viewerObject.transform.translation = objectPosition + glm::vec3(relativePosition);
 
                 glm::vec3 newTarget = objectPosition;
-                glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);  // fixed up-vector for now
+                glm::vec3 upVector = glm::vec3(0.0f, -1.0f, 0.0f);  // fixed up-vector for now
 
                 camera.setViewTarget(viewerObject.transform.translation, newTarget, upVector);
             }
-
-
-
+            // Default camera movement using keyboard
             else {
                 cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
                 camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
             }
-
             float aspect = lveRenderer.getAspectRatio();
-            camera.setPerspectiveProjection(glm::radians(100.f), aspect, 0.1f, 10.f);
+            camera.setPerspectiveProjection(glm::radians(120.f), aspect, 0.1f, 10.f);
 
+            // Render command
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
                 simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
@@ -69,10 +74,10 @@ namespace lve {
                 lveRenderer.endFrame();
             }
         }
-
         vkDeviceWaitIdle(lveDevice.device());
     }
 
+    /* Function to create a colored cube model */
     std::unique_ptr<LveModel> createColoredCubeModel(LveDevice &device, glm::vec3 color) {
         std::vector<LveModel::Vertex> vertices{
                 // left face
@@ -168,7 +173,7 @@ namespace lve {
                     float centerPositionX = startCol + width / 2.0f;
                     glm::vec3 position = {centerPositionX, i, 0.f};
 
-                    // Here's the change. Using createColoredCubeModel and fetching the color from colorLookup.
+                    // Using createColoredCubeModel and fetching the color from colorLookup.
                     std::shared_ptr<LveModel> lveModel = createColoredCubeModel(lveDevice, colorLookup[currentColor]);
 
                     auto cube = LveGameObject::createGameObject();
@@ -187,7 +192,6 @@ namespace lve {
             float centerPositionX = startCol + width / 2.0f;
             glm::vec3 position = {centerPositionX, i, 0.f};
 
-            // Here's another change. Using createColoredCubeModel and fetching the color from colorLookup.
             std::shared_ptr<LveModel> lveModel = createColoredCubeModel(lveDevice, colorLookup[currentColor]);
 
             auto cube = LveGameObject::createGameObject();
