@@ -36,7 +36,7 @@ namespace lve {
 
         LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
         LveDevice lveDevice{lveWindow};
-        std::shared_ptr<LveImage> textureImage = LveImage::createImageFromFile(lveDevice, "../textures/icon.png");
+        std::shared_ptr<LveImage> textureImage = LveImage::createImageFromFile(lveDevice, "../textures/escamas.png");
         // Here we need to setup the TextureMapping.
         //createTextureImage();
         //createTextureImageView();

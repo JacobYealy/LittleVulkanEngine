@@ -10,7 +10,10 @@
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated />
+    <generated>
+      <config projectName="VulkanTest_3D_Light_Texture_V31_Plus" targetName="VulkanTest_3D_Light_Texture_V31_Plus" />
+      <config projectName="VulkanTest_3D_Light_Texture_V31_Plus" targetName="shaders" />
+    </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -18,15 +21,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Updates to video 31">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Updated README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/tol/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tol/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systems/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/systems/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/colored_cube.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cube.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cube_alt.obj" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +42,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -102,7 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696262546761</updated>
       <workItem from="1696262547803" duration="2321000" />
-      <workItem from="1696274749317" duration="1501000" />
+      <workItem from="1696274749317" duration="5882000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
@@ -111,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696275507639</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Updated README.md">
+      <created>1696276470026</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1696276470026</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +133,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updates to video 31" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates to video 31" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
   </component>
 </project>
