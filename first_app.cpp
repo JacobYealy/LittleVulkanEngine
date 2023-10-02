@@ -77,7 +77,7 @@ namespace lve {
                     angle -= (accumulatedRotation - glm::radians(360.0f));  // Adjust to ensure only 360 degrees in total
                 }
 
-                glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f));
+                glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 10.0f));
                 relativePosition = rotation * glm::vec4(relativePosition, 1.0f);
 
                 viewerObject.transform.translation = objectPosition + glm::vec3(relativePosition);

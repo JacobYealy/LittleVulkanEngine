@@ -1,4 +1,2 @@
-/home/jy0441/CG/transforms/cmake-build-debug/CMakeFiles/shaders.dir
-/home/jy0441/CG/transforms/cmake-build-debug/CMakeFiles/CG.dir
 /home/jy0441/CG/transforms/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/jy0441/CG/transforms/cmake-build-debug/CMakeFiles/rebuild_cache.dir
