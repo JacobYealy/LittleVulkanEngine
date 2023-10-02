@@ -157,7 +157,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=CG
+CMAKE_PROJECT_NAME:STATIC=VulkanTest_3D_Light_Texture_V31_Plus
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -226,6 +226,24 @@ PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+//Value Computed by CMake
+Project_BINARY_DIR:STATIC=/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug
+
+//Value Computed by CMake
+Project_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus
+
+//Value Computed by CMake
+VulkanTest_3D_Light_Texture_V31_Plus_BINARY_DIR:STATIC=/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug
+
+//Value Computed by CMake
+VulkanTest_3D_Light_Texture_V31_Plus_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+VulkanTest_3D_Light_Texture_V31_Plus_SOURCE_DIR:STATIC=/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus
 
 //Path to a program.
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=Vulkan_GLSLANG_VALIDATOR_EXECUTABLE-NOTFOUND
@@ -349,7 +367,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

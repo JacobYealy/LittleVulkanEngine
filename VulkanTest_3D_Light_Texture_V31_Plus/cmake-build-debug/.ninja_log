@@ -1,0 +1,25 @@
+# ninja log v5
+459	1935	1696276259994536300	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_device.cpp.o	9daef3351a4e990f
+991	1541	1696276259574558400	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_buffer.cpp.o	229dee63d6327bc
+9	456	1696276258494615200	/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/shaders/point_light.vert.spv	b0b622e5a1935aac
+460	956	1696276258994588900	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_camera.cpp.o	480900a46d702512
+459	1796	1696276259858543500	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_pipeline.cpp.o	148236eecc57c84e
+460	1709	1696276259686552500	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_descriptors.cpp.o	d4140f42f8582404
+5	361	1696276288393084400	build.ninja	2b2ea2fc6b2c2949
+457	1440	1696276259442565300	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_renderer.cpp.o	fdcaf87a4f9cf96d
+457	1898	1696276259866543000	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o	82f20d9ee1066cc8
+460	3507	1696276261322466700	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_model.cpp.o	5d185f9ff852f42a
+458	2562	1696276260498509900	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o	411ff5c0483ec406
+456	1902	1696276259962538000	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_swap_chain.cpp.o	867ffb37fb393466
+1441	2439	1696276260498509900	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o	7128df281b91bdb4
+958	2435	1696276260494510100	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o	87f4672cf033cb0b
+1542	2835	1696276260814493300	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_image.cpp.o	c3c66d65764da929
+9	406	1696276258446617700	/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/shaders/point_light.frag.spv	2e379704f3d14a2f
+3508	4049	1696276262106425600	VulkanTest_3D_Light_Texture_V31_Plus	44abfd3e23d22082
+457	1959	1696276259970537600	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o	2f129aaf4808ebf8
+8	424	1696276258462616900	/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/shaders/simple_shader.vert.spv	ba027c67eb49e4b0
+459	1554	1696276259574558400	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o	4e79255867f77b
+458	990	1696276259014587800	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_window.cpp.o	a351378b0ed28c58
+8	417	1696276258454617300	/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/shaders/simple_shader.frag.spv	e32dcd3c5bbaf74a
+4	433	1696276288393084400	build.ninja	2b2ea2fc6b2c2949
+19	366	1696276289029052800	/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/shaders/point_light.frag.spv	2e379704f3d14a2f
