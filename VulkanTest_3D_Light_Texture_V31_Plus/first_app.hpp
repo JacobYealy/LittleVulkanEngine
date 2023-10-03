@@ -17,8 +17,8 @@
 #include <vector>
 
 namespace lve {
-    class FirstApp {
 
+    class FirstApp {
     public:
         static constexpr int WIDTH = 800;
         static constexpr int HEIGHT = 600;
@@ -36,17 +36,20 @@ namespace lve {
 
         LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
         LveDevice lveDevice{lveWindow};
+
+        // Dragon texture
         std::shared_ptr<LveImage> textureImage = LveImage::createImageFromFile(lveDevice, "../textures/escamas.png");
-        // Here we need to setup the TextureMapping.
-        //createTextureImage();
-        //createTextureImageView();
-        // Here is where they create the VertexBuffer, IndexBuffer, and UniformBuffer.
+
+        // Terrain texture
+        std::shared_ptr<LveImage> terrainTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/space.png");
+
         LveRenderer lveRenderer{lveWindow, lveDevice};
 
-        //note: Order of declaration is important.
+        // Order of declaration is important.
         std::unique_ptr<LveDescriptorPool> globalPool{};
         LveGameObject::Map gameObjects;
     };
-}
+
+} // namespace lve
 
 #endif //VULKANTEST_FIRST_APP_HPP

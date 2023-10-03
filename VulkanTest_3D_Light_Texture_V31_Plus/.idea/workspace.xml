@@ -26,13 +26,12 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/colored_cube.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/cube.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/cube_alt.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/icon.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,11 +84,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="shaders" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="shaders" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -110,6 +104,7 @@
       <updated>1696262546761</updated>
       <workItem from="1696262547803" duration="2321000" />
       <workItem from="1696274749317" duration="5882000" />
+      <workItem from="1696286046660" duration="6817000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
