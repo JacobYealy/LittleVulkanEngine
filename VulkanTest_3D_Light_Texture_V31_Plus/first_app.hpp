@@ -37,18 +37,18 @@ namespace lve {
         LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
         LveDevice lveDevice{lveWindow};
 
-        // Dragon texture
+        // Texture for dragon
         std::shared_ptr<LveImage> textureImage = LveImage::createImageFromFile(lveDevice, "../textures/escamas.png");
 
-        // Terrain texture
-        std::shared_ptr<LveImage> terrainTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/space.png");
+        // Texture for eaten planet
+        std::shared_ptr<LveImage> terrainTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/blue.jpg");
 
-        // Dino texture
-        std::shared_ptr<LveImage> dinoTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/scales.png");
+        //Texture for terrain
+        std::shared_ptr<LveImage> dinoTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/space.png");
+
+        std::vector<std::shared_ptr<LveImage>> textureImages; // For maintaining the list of textures
 
         LveRenderer lveRenderer{lveWindow, lveDevice};
-
-        // Order of declaration is important.
         std::unique_ptr<LveDescriptorPool> globalPool{};
         LveGameObject::Map gameObjects;
     };

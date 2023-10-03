@@ -28,7 +28,7 @@ namespace lve {
         globalPool = LveDescriptorPool::Builder(lveDevice)
                 .setMaxSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT)
                 .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LveSwapChain::MAX_FRAMES_IN_FLIGHT)
-                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, LveSwapChain::MAX_FRAMES_IN_FLIGHT) // This is for the texture maps.
+                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3 * LveSwapChain::MAX_FRAMES_IN_FLIGHT) // Adjusted for 3 textures
                 .build();
 
         loadGameObjects();
@@ -55,18 +55,26 @@ namespace lve {
         auto globalSetLayout = LveDescriptorSetLayout::Builder(lveDevice)
                 .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,VK_SHADER_STAGE_ALL_GRAPHICS)
                 .addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT)
+                .addBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 2nd texture
+                .addBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 3rd texture
                 .build();
+
         // Need to see if anything needs to be done here for the texture maps.
         // Something isn't beting setup right for the Image Info, information is not getting freed correctly.
         std::vector<VkDescriptorSet> globalDescriptorSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT);
-        for (int i=0;i<globalDescriptorSets.size();i++) {
+        for (int i = 0; i < globalDescriptorSets.size(); i++) {
             auto bufferInfo = uboBuffers[i]->descriptorInfo();
-            auto imageInfo = textureImage->descriptorImageInfo();
+            auto imageInfo1 = textureImage->descriptorImageInfo();
+            auto imageInfo2 = terrainTextureImage->descriptorImageInfo();  // Added
+            auto imageInfo3 = dinoTextureImage->descriptorImageInfo();      // Added
             LveDescriptorWriter(*globalSetLayout, *globalPool)
-                .writeBuffer(0, &bufferInfo)
-                .writeImage(1, &imageInfo)
-                .build(globalDescriptorSets[i]); // Should only build a set once.
+                    .writeBuffer(0, &bufferInfo)
+                    .writeImage(1, &imageInfo1)
+                    .writeImage(2, &imageInfo2)       // Added
+                    .writeImage(3, &imageInfo3)       // Added
+                    .build(globalDescriptorSets[i]);
         }
+
 
         SimpleRenderSystem simpleRenderSystem{lveDevice, lveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
         PointLightSystem pointLightSystem{lveDevice, lveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
@@ -121,15 +129,15 @@ namespace lve {
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         auto flatVase = LveGameObject::createGameObject();
         flatVase.model = lveModel;
-        flatVase.transform.translation = {-2.f, 5.f, -3.5f};  // adjusted the Z-coordinate
+        flatVase.transform.translation = {-2.f, 5.f, -3.5f};
         flatVase.transform.scale = {1.f, 1.f, 1.f};
-        flatVase.textureBinding = 3;
+        flatVase.textureBinding = 2;
         gameObjects.emplace(flatVase.getId(), std::move(flatVase));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
         auto smoothVase = LveGameObject::createGameObject();
         smoothVase.model = lveModel;
-        smoothVase.transform.translation = {0.f, 10.f, 2.5f};  // dragon's position remains unchanged
+        smoothVase.transform.translation = {0.f, 10.f, 2.5f};
         smoothVase.transform.scale = {-1.f, -1.f, -1.f};
         smoothVase.textureBinding = 1;
         gameObjects.emplace(smoothVase.getId(),std::move(smoothVase));
@@ -138,9 +146,9 @@ namespace lve {
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/terrain.obj");
         auto floor = LveGameObject::createGameObject();
         floor.model = lveModel;
-        floor.transform.translation = {0.f, 10.f, -5.5f};  // adjusted the Z-coordinate
+        floor.transform.translation = {0.f, 10.f, -5.5f};
         floor.transform.scale = {-1.f, -1.f, -1.f};
-        floor.textureBinding = 1;
+        floor.textureBinding = 3;
         gameObjects.emplace(floor.getId(),std::move(floor));
 
         std::vector<glm::vec3> lightColors{
