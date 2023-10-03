@@ -118,12 +118,12 @@ namespace lve {
     }
 
     void FirstApp::loadGameObjects() {
-        std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/terrain.obj");
+        std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         auto flatVase = LveGameObject::createGameObject();
         flatVase.model = lveModel;
-        flatVase.transform.translation = {0.f, 10.f, -5.5f};  // adjusted the Z-coordinate
-        flatVase.transform.scale = {-1.f, -1.f, -1.f};
-        flatVase.textureBinding = 2;
+        flatVase.transform.translation = {-2.f, 5.f, -3.5f};  // adjusted the Z-coordinate
+        flatVase.transform.scale = {1.f, 1.f, 1.f};
+        flatVase.textureBinding = 3;
         gameObjects.emplace(flatVase.getId(), std::move(flatVase));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
@@ -135,11 +135,11 @@ namespace lve {
         gameObjects.emplace(smoothVase.getId(),std::move(smoothVase));
 
 
-        lveModel = LveModel::createModelFromFile(lveDevice, "../models/Moon.obj");
+        lveModel = LveModel::createModelFromFile(lveDevice, "../models/terrain.obj");
         auto floor = LveGameObject::createGameObject();
         floor.model = lveModel;
-        floor.transform.translation = {0.f, 0.5f, 0.f};
-        floor.transform.scale = {3.f, 1.f, 3.f};
+        floor.transform.translation = {0.f, 10.f, -5.5f};  // adjusted the Z-coordinate
+        floor.transform.scale = {-1.f, -1.f, -1.f};
         floor.textureBinding = 1;
         gameObjects.emplace(floor.getId(),std::move(floor));
 

@@ -43,6 +43,9 @@ namespace lve {
         // Terrain texture
         std::shared_ptr<LveImage> terrainTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/space.png");
 
+        // Dino texture
+        std::shared_ptr<LveImage> dinoTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/scales.png");
+
         LveRenderer lveRenderer{lveWindow, lveDevice};
 
         // Order of declaration is important.
