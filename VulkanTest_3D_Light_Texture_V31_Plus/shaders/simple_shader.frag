@@ -24,6 +24,7 @@ layout (set = 0, binding = 0) uniform GlobalUbo {
 layout (set = 0, binding = 1) uniform sampler2D textSampler;
 layout (set = 0, binding = 2) uniform sampler2D textSampler2; //Add more for extra textures
 layout (set = 0, binding = 3) uniform sampler2D textSampler3;
+layout (set = 0, binding = 4) uniform sampler2D textSampler4;
 
 layout(push_constant) uniform Push {
     mat4 modelMatrix;
@@ -66,6 +67,8 @@ void main()
         tFragColor = texture(textSampler2, fragTexCoord); // Add more for extra textures
     if (fragTextureId == 3)
     tFragColor = texture(textSampler3, fragTexCoord);
+    if (fragTextureId == 4)
+    tFragColor = texture(textSampler4, fragTexCoord);
 
     outColor = vec4(diffuseLight * tFragColor.xyz + specularLight * tFragColor.xyz,1.0);
 }

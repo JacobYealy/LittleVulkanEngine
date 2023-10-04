@@ -18,17 +18,16 @@
 #include <iostream>
 #include <array>
 #include <chrono>
+#include <map>
 
 namespace lve {
-
-
 
     FirstApp::FirstApp() {
         // We need to add a pool for the textureImages.
         globalPool = LveDescriptorPool::Builder(lveDevice)
                 .setMaxSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT)
                 .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LveSwapChain::MAX_FRAMES_IN_FLIGHT)
-                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3 * LveSwapChain::MAX_FRAMES_IN_FLIGHT) // Adjusted for 3 textures
+                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 4 * LveSwapChain::MAX_FRAMES_IN_FLIGHT) // Adjusted for 3 textures
                 .build();
 
         loadGameObjects();
@@ -57,6 +56,7 @@ namespace lve {
                 .addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT)
                 .addBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 2nd texture
                 .addBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 3rd texture
+                .addBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 4th texture
                 .build();
 
         // Need to see if anything needs to be done here for the texture maps.
@@ -67,11 +67,13 @@ namespace lve {
             auto imageInfo1 = textureImage->descriptorImageInfo();
             auto imageInfo2 = terrainTextureImage->descriptorImageInfo();  // Added
             auto imageInfo3 = dinoTextureImage->descriptorImageInfo();      // Added
+            auto imageInfo4 = skyTextureImage->descriptorImageInfo();      // Added
             LveDescriptorWriter(*globalSetLayout, *globalPool)
                     .writeBuffer(0, &bufferInfo)
                     .writeImage(1, &imageInfo1)
                     .writeImage(2, &imageInfo2)       // Added
                     .writeImage(3, &imageInfo3)       // Added
+                    .writeImage(4, &imageInfo4)       // Added
                     .build(globalDescriptorSets[i]);
         }
 
@@ -79,11 +81,12 @@ namespace lve {
         SimpleRenderSystem simpleRenderSystem{lveDevice, lveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
         PointLightSystem pointLightSystem{lveDevice, lveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
         LveCamera camera{};
-        camera.setViewTarget(glm::vec3(0.f, 0.f, -2.5f), glm::vec3(0.f, 0.f, 2.5f));
+        camera.setViewTarget(glm::vec3(0.f, 0.f, -2.5f), glm::vec3(0.f, 5.f, 1.5f));
 
         auto viewerObject = LveGameObject::createGameObject();
-        viewerObject.transform.translation.x = -20.0f;
-        viewerObject.transform.translation.z = -2.5f;
+        viewerObject.transform.translation.x = -20.0f; //left or right
+        viewerObject.transform.translation.y = 4.0f; // height
+        viewerObject.transform.translation.z = -15.0f; //forward backward
         KeyboardMovementController cameraController{};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -119,47 +122,74 @@ namespace lve {
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
             }
-
         }
-
         vkDeviceWaitIdle(lveDevice.device());
     }
 
+    /*
+     * loadGameObjects()
+     *
+     */
     void FirstApp::loadGameObjects() {
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
-        auto flatVase = LveGameObject::createGameObject();
-        flatVase.model = lveModel;
-        flatVase.transform.translation = {-2.f, 5.f, -3.5f};
-        flatVase.transform.scale = {1.f, 1.f, 1.f};
-        flatVase.textureBinding = 2;
-        gameObjects.emplace(flatVase.getId(), std::move(flatVase));
+        auto planet = LveGameObject::createGameObject();
+        planet.model = lveModel;
+        planet.transform.translation = {-25.f, 5.f, -3.5f}; //-5 from dragon Z
+        planet.transform.scale = {1.f, 1.f, 1.f};
+        planet.textureBinding = 2;
+        gameObjects.emplace(planet.getId(), std::move(planet));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
-        auto smoothVase = LveGameObject::createGameObject();
-        smoothVase.model = lveModel;
-        smoothVase.transform.translation = {0.f, 10.f, 2.5f};
-        smoothVase.transform.scale = {-1.f, -1.f, -1.f};
-        smoothVase.textureBinding = 1;
-        gameObjects.emplace(smoothVase.getId(),std::move(smoothVase));
+        auto dragon = LveGameObject::createGameObject();
+        dragon.model = lveModel;
+        dragon.transform.translation = {-23.f, 10.f, 2.5f};
+        dragon.transform.scale = {-1.f, -1.f, -1.f};
+        dragon.textureBinding = 1;
+        gameObjects.emplace(dragon.getId(),std::move(dragon));
 
 
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/terrain.obj");
         auto floor = LveGameObject::createGameObject();
         floor.model = lveModel;
-        floor.transform.translation = {0.f, 10.f, -5.5f};
+        floor.transform.translation = {-23.f, 10.f, -5.5f};
         floor.transform.scale = {-1.f, -1.f, -1.f};
         floor.textureBinding = 3;
         gameObjects.emplace(floor.getId(),std::move(floor));
 
-        std::vector<glm::vec3> lightColors{
-            {1.f, .1f, .1f},
-            {.1f, .1f, 1.f},
-            {.1f, 1.f, .1f},
-            {1.f, 1.f, .1f},
-            {.1f, 1.f, 1.f},
-            {1.f, 1.f, 1.f}  //
+        lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
+        auto sky = LveGameObject::createGameObject();
+        sky.model = lveModel;
+        sky.transform.translation = {90.0f, 45.0f, 30.0f};
+        sky.transform.scale = {-50.f, -30.f, -30.f};
+        sky.textureBinding = 4;
+        gameObjects.emplace(sky.getId(),std::move(sky));
+
+
+        std::map<int, glm::vec3> lightColorsMap{
+                {0, {.1f, .1f, 1.f}},  // Blue
+                {1, {1.f, .1f, .1f}},   // Red
+                {2, {0.7f, 0.7f, 0.7f}}   // White
         };
 
+        // lower Y = higher up, X = CLOSER or FURTHER, Z = LEFT to RIGHT
+        std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
+                {0, {-23.5f, 4.5f, -3.5f}},  // Blue light to the left of the planet
+                {0, {-26.f, 5.f, -3.f}},  // Blue light to the left of the planet
+                {1, {-23.2f, 3.f, -2.5f}},          // Right eyeball
+                {1, {-23.8f, 3.f, -2.f}},          // Left eyeball
+                {1, {-22.f, 4.f, -1.5f}},          // Under chin
+                {1, {-24.5f, 2.f, 1.8f}},          // Left arm
+                {1, {-22.f, 2.f, 1.5f}},          // right arm
+                {1, {-23.f, 6.f, 3.f}},           // Red light below the dragon
+                {2, {-33.f, 15.f, 0.f}},   // White light between dragon and spawn
+        };
+
+        for (const auto& [colorIndex, position] : lightPositionsAndColors) {
+            auto pointLight = LveGameObject::makePointLight(2.f);
+            pointLight.color = lightColorsMap[colorIndex];
+            pointLight.transform.translation = position;
+            gameObjects.emplace(pointLight.getId(), std::move(pointLight));
+        }
 
     }
 }

@@ -21,8 +21,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Placed planet by dragons mouth. Scene in place, need to fix texture mapping.">
+    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="All textures load">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2023-10-02T19-51-28-0645.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
@@ -33,7 +34,6 @@
       <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/simple_shader.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag.spv" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/simple_shader.frag.spv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/scales.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,10 +77,16 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager" selected="CMake Application.VulkanTest_3D_Light_Texture_V31_Plus">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="VulkanTest_3D_Light_Texture_V31_Plus" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" RUN_TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -108,7 +114,12 @@
       <workItem from="1696274749317" duration="5882000" />
       <workItem from="1696286046660" duration="10067000" />
       <workItem from="1696347666023" duration="41000" />
-      <workItem from="1696350219443" duration="3063000" />
+      <workItem from="1696350219443" duration="5235000" />
+      <workItem from="1696360593802" duration="8883000" />
+      <workItem from="1696420917524" duration="1349000" />
+      <workItem from="1696427474998" duration="218000" />
+      <workItem from="1696450501805" duration="52000" />
+      <workItem from="1696458836766" duration="3426000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
@@ -138,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696294423548</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="All textures load">
+      <created>1696353535800</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696353535800</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +167,7 @@
     <MESSAGE value="Updated README.md" />
     <MESSAGE value="Dragon is upright in camera view with texture applied. Terrain is in place but second textures are non functional." />
     <MESSAGE value="Placed planet by dragons mouth. Scene in place, need to fix texture mapping." />
-    <option name="LAST_COMMIT_MESSAGE" value="Placed planet by dragons mouth. Scene in place, need to fix texture mapping." />
+    <MESSAGE value="All textures load" />
+    <option name="LAST_COMMIT_MESSAGE" value="All textures load" />
   </component>
 </project>
