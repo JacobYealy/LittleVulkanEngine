@@ -84,9 +84,11 @@ namespace lve {
         camera.setViewTarget(glm::vec3(0.f, 0.f, -2.5f), glm::vec3(0.f, 5.f, 1.5f));
 
         auto viewerObject = LveGameObject::createGameObject();
-        viewerObject.transform.translation.x = -20.0f; //left or right
-        viewerObject.transform.translation.y = 4.0f; // height
-        viewerObject.transform.translation.z = -15.0f; //forward backward
+
+
+        viewerObject.transform.translation.x = -25.0f; //left or right
+        viewerObject.transform.translation.y = 5.0f; // height
+        viewerObject.transform.translation.z = -14.0f; //forward backward
         KeyboardMovementController cameraController{};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -148,18 +150,18 @@ namespace lve {
         gameObjects.emplace(dragon.getId(),std::move(dragon));
 
 
-        lveModel = LveModel::createModelFromFile(lveDevice, "../models/terrain.obj");
+        lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
         auto floor = LveGameObject::createGameObject();
         floor.model = lveModel;
-        floor.transform.translation = {-23.f, 10.f, -5.5f};
-        floor.transform.scale = {-1.f, -1.f, -1.f};
+        floor.transform.translation = {-27.f, 0.f, 2.5f};
+        floor.transform.scale = {1.f, 1.f, -1.f};
         floor.textureBinding = 3;
         gameObjects.emplace(floor.getId(),std::move(floor));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
         auto sky = LveGameObject::createGameObject();
         sky.model = lveModel;
-        sky.transform.translation = {90.0f, 45.0f, 30.0f};
+        sky.transform.translation = {70.0f, 45.0f, 30.0f};
         sky.transform.scale = {-50.f, -30.f, -30.f};
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
@@ -173,7 +175,7 @@ namespace lve {
 
         // lower Y = higher up, X = CLOSER or FURTHER, Z = LEFT to RIGHT
         std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
-                {0, {-23.5f, 4.5f, -3.5f}},  // Blue light to the left of the planet
+                {0, {-27.5f, 6.5f, -0.5f}},  // Blue light to the left of dragon
                 {0, {-26.f, 5.f, -3.f}},  // Blue light to the left of the planet
                 {1, {-23.2f, 3.f, -2.5f}},          // Right eyeball
                 {1, {-23.8f, 3.f, -2.f}},          // Left eyeball
