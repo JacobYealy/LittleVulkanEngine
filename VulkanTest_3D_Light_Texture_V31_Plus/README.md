@@ -5,12 +5,17 @@ Computer Graphics
 
 ## Table of contents:
 - [Concept](#concept)
-- [References](#references)
+- [Progression](#progression)
+- [Project 1](#)
 
 
 ### Concept
 This part of the project involves integrating 3D models into our Vulkan architecture.  
 The purpose of the chosen models are to mock a fight on the bridge.
+
+## Progression
+
+Before:
 
 
 ### References

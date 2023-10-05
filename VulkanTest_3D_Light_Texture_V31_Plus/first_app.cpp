@@ -36,10 +36,17 @@ namespace lve {
 
     FirstApp::~FirstApp() { }
 
+
+    /**
+ * @brief Main rendering loop of the application.
+ *
+ * This function handles:
+ * - Initialization of uniform buffers and descriptor sets
+ * - Creation and setup of render systems and camera
+ * - Main application loop for updating and rendering the scene
+ */
     void FirstApp::run() {
 
-        // The GlobalUbo is a fixed size so we can setup this up here then load in the data later.
-        // So I need to load in the images first.
         std::vector<std::unique_ptr<LveBuffer>> uboBuffers(LveSwapChain::MAX_FRAMES_IN_FLIGHT);
         for (int i=0;i<uboBuffers.size();i++) {
             uboBuffers[i] = std::make_unique<LveBuffer>(
@@ -120,7 +127,7 @@ namespace lve {
                 //render
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
                 simpleRenderSystem.render(frameInfo); // Solid Objects
-                pointLightSystem.render(frameInfo);  // Transparent Objects
+                // pointLightSystem.render(frameInfo);  // Transparent lights
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
             }
@@ -128,19 +135,24 @@ namespace lve {
         vkDeviceWaitIdle(lveDevice.device());
     }
 
-    /*
-     * loadGameObjects()
-     *
-     */
+
+/**
+ * Loads all the game objects required for the scene.
+ * Describes the scene of dueling dragons.
+ * This includes the Dragon, Planet, and Sky models,
+ * as well as the configuration for point lights used in the scene.
+ */
     void FirstApp::loadGameObjects() {
+        // Load the planet model and set its properties
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         auto planet = LveGameObject::createGameObject();
         planet.model = lveModel;
-        planet.transform.translation = {-25.f, 5.f, -3.5f}; //-5 from dragon Z
+        planet.transform.translation = {-25.f, 5.f, -3.5f};
         planet.transform.scale = {1.f, 1.f, 1.f};
         planet.textureBinding = 2;
         gameObjects.emplace(planet.getId(), std::move(planet));
 
+        // Load the dragon model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
         auto dragon = LveGameObject::createGameObject();
         dragon.model = lveModel;
@@ -149,7 +161,7 @@ namespace lve {
         dragon.textureBinding = 1;
         gameObjects.emplace(dragon.getId(),std::move(dragon));
 
-
+        // Load the terrain model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
         auto floor = LveGameObject::createGameObject();
         floor.model = lveModel;
@@ -158,41 +170,47 @@ namespace lve {
         floor.textureBinding = 3;
         gameObjects.emplace(floor.getId(),std::move(floor));
 
+        // Load the sky model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
         auto sky = LveGameObject::createGameObject();
         sky.model = lveModel;
-        sky.transform.translation = {70.0f, 45.0f, 30.0f};
+        sky.transform.translation = {50.0f, 45.0f, 30.0f};
         sky.transform.scale = {-50.f, -30.f, -30.f};
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
 
-
+        // Define light colors
         std::map<int, glm::vec3> lightColorsMap{
                 {0, {.1f, .1f, 1.f}},  // Blue
-                {1, {1.f, .1f, .1f}},   // Red
+                {1, {1.f, .1f, .1f}},  // Red
                 {2, {0.7f, 0.7f, 0.7f}}   // White
         };
 
-        // lower Y = higher up, X = CLOSER or FURTHER, Z = LEFT to RIGHT
+        // Define light positions and their corresponding colors
         std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
-                {0, {-27.5f, 6.5f, -0.5f}},  // BLUE chin
-                {0, {-26.5f, 7.f, -2.5f}},  // Blue eye
-                {1, {-23.2f, 3.f, -2.5f}},          // Right eyeball red dragon
-                {1, {-23.8f, 3.f, -2.f}},          // Left eyeball red
-                {1, {-22.f, 4.f, -1.5f}},          // Under chin RED
-                {1, {-24.5f, 2.f, 1.8f}},          // Left arm RED
-                {1, {-23.f, 6.f, 3.f}},           // Red light below the dragon
-                {2, {-26.f, 5.f, -4.5f}},   // Planet
-                {0, {-27.f, 3.f, -2.5f}},   // Blue dragon tail
-                {0, {-28.f, 6.5f, -1.5f}},   // Blue dragon tail
+                // Blue dragon
+                {0, {-27.5f, 6.5f, -0.5f}},  // Chin
+                {0, {-26.5f, 7.f, -2.5f}},  // Eye
+                {0, {-27.f, 3.f, -2.5f}},   // Tail
+                {0, {-28.f, 6.5f, -1.5f}},   // Left arm
+
+                // Red dragon
+                {1, {-23.2f, 3.f, -2.5f}},          // Right eye
+                {1, {-23.8f, 3.f, -2.f}},          // Left eye
+                {1, {-22.f, 4.f, -1.5f}},          // Under chin
+                {1, {-24.5f, 2.f, 1.8f}},          // Left arm
+                {1, {-23.f, 6.f, 3.f}},           // Tail
+
+                // Planet
+                {2, {-26.f, 5.f, -4.5f}},
         };
 
+        // Instantiate the lights with the given positions and colors
         for (const auto& [colorIndex, position] : lightPositionsAndColors) {
-            auto pointLight = LveGameObject::makePointLight(2.f);
+            auto pointLight = LveGameObject::makePointLight(3.f);
             pointLight.color = lightColorsMap[colorIndex];
             pointLight.transform.translation = position;
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));
         }
-
     }
 }
