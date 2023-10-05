@@ -43,8 +43,8 @@ namespace lve {
         // Texture for eaten planet
         std::shared_ptr<LveImage> terrainTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/space.png");
 
-        //Texture for terrain
-        std::shared_ptr<LveImage> dinoTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/blue.jpg");
+        //Texture for blue dragon
+        std::shared_ptr<LveImage> dinoTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/bluedragon.png");
 
         //Texture for sky
         std::shared_ptr<LveImage> skyTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/sky.png");

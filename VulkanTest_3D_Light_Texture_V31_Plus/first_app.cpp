@@ -88,7 +88,7 @@ namespace lve {
 
         viewerObject.transform.translation.x = -25.0f; //left or right
         viewerObject.transform.translation.y = 5.0f; // height
-        viewerObject.transform.translation.z = -14.0f; //forward backward
+        viewerObject.transform.translation.z = -15.0f; //forward backward
         KeyboardMovementController cameraController{};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -175,15 +175,16 @@ namespace lve {
 
         // lower Y = higher up, X = CLOSER or FURTHER, Z = LEFT to RIGHT
         std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
-                {0, {-27.5f, 6.5f, -0.5f}},  // Blue light to the left of dragon
-                {0, {-26.f, 5.f, -3.f}},  // Blue light to the left of the planet
-                {1, {-23.2f, 3.f, -2.5f}},          // Right eyeball
-                {1, {-23.8f, 3.f, -2.f}},          // Left eyeball
-                {1, {-22.f, 4.f, -1.5f}},          // Under chin
-                {1, {-24.5f, 2.f, 1.8f}},          // Left arm
-                {1, {-22.f, 2.f, 1.5f}},          // right arm
+                {0, {-27.5f, 6.5f, -0.5f}},  // BLUE chin
+                {0, {-26.5f, 7.f, -2.5f}},  // Blue eye
+                {1, {-23.2f, 3.f, -2.5f}},          // Right eyeball red dragon
+                {1, {-23.8f, 3.f, -2.f}},          // Left eyeball red
+                {1, {-22.f, 4.f, -1.5f}},          // Under chin RED
+                {1, {-24.5f, 2.f, 1.8f}},          // Left arm RED
                 {1, {-23.f, 6.f, 3.f}},           // Red light below the dragon
-                {2, {-33.f, 15.f, 0.f}},   // White light between dragon and spawn
+                {2, {-26.f, 5.f, -4.5f}},   // Planet
+                {0, {-27.f, 3.f, -2.5f}},   // Blue dragon tail
+                {0, {-28.f, 6.5f, -1.5f}},   // Blue dragon tail
         };
 
         for (const auto& [colorIndex, position] : lightPositionsAndColors) {

@@ -21,7 +21,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Spawns at correct location with night sky.">
+    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Dueling dragons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
@@ -30,7 +30,6 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/pb.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +115,7 @@
       <workItem from="1696420917524" duration="1349000" />
       <workItem from="1696427474998" duration="218000" />
       <workItem from="1696450501805" duration="52000" />
-      <workItem from="1696458836766" duration="5369000" />
+      <workItem from="1696458836766" duration="7566000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
@@ -160,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696462506147</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Dueling dragons">
+      <created>1696464427749</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1696464427749</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +179,7 @@
     <MESSAGE value="Placed planet by dragons mouth. Scene in place, need to fix texture mapping." />
     <MESSAGE value="All textures load" />
     <MESSAGE value="Spawns at correct location with night sky." />
-    <option name="LAST_COMMIT_MESSAGE" value="Spawns at correct location with night sky." />
+    <MESSAGE value="Dueling dragons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dueling dragons" />
   </component>
 </project>
