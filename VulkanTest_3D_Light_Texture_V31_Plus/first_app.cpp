@@ -15,8 +15,8 @@
 
 namespace lve {
 
-    const float X_OFFSET = 1.0f;  // Adjust as needed
-    const float Y_OFFSET = 1.0f;  // Adjust as needed
+    const float X_OFFSET = 4.0f;  // Adjust as needed
+    const float Y_OFFSET = -3.0f;  // Adjust as needed
 
     FirstApp::FirstApp() {
         // We need to add a pool for the textureImages.
@@ -91,12 +91,13 @@ namespace lve {
 
         viewerObject.transform.translation.x = -25.0f; //left or right
         viewerObject.transform.translation.y = 5.0f; // height
-        viewerObject.transform.translation.z = -15.0f; //forward backward
+        viewerObject.transform.translation.z = -25.0f; //forward backward
         KeyboardMovementController cameraController{};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
 
         while (!lveWindow.shouldClose()) {
+
             glfwPollEvents();
 
             auto newTime = std::chrono::high_resolution_clock::now();
@@ -107,11 +108,11 @@ namespace lve {
                 isAnimatingDragon1 = true;
                 auto& dragon1 = gameObjects.at(DRAGON1_ID);
                 dragon1OriginalPosition = dragon1.transform.translation;
-                dragon1OriginalRotation = dragon1.transform.rotation;
-                dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+                dragon1OriginalScale = dragon1.transform.scale;
+                dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(4.0f, -3.0f, 7.0f);
+                dragon1TargetScale = glm::vec3(-dragon1OriginalScale.x, dragon1OriginalScale.y, dragon1OriginalScale.z); // flip in the X-axis
                 animationProgressDragon1 = 0.0f;
             }
-
 
             if (isAnimatingDragon1) {
                 auto& dragon1 = gameObjects.at(DRAGON1_ID);
@@ -119,25 +120,27 @@ namespace lve {
 
                 if (animationProgressDragon1 <= 1.0f) {
                     dragon1.transform.translation = glm::mix(dragon1OriginalPosition, dragon1TargetPosition, animationProgressDragon1);
+                    dragon1.transform.scale = glm::mix(dragon1OriginalScale, dragon1TargetScale, animationProgressDragon1);
                 } else {
                     dragon1.transform.translation = dragon1TargetPosition;
+                    dragon1.transform.scale = dragon1TargetScale;
                     isAnimatingDragon1 = false;
-
-                    // Swap the original and target positions
                     std::swap(dragon1OriginalPosition, dragon1TargetPosition);
+                    std::swap(dragon1OriginalScale, dragon1TargetScale);
                 }
             }
+
 
 
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS && !isAnimatingDragon2) {
                 isAnimatingDragon2 = true;
                 auto& dragon2 = gameObjects.at(DRAGON2_ID);
                 dragon2OriginalPosition = dragon2.transform.translation;
-                dragon2OriginalRotation = dragon2.transform.rotation;
-                dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+                dragon2OriginalScale = dragon2.transform.scale;
+                dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, -7.0f);
+                dragon2TargetScale = glm::vec3(-dragon2OriginalScale.x, dragon2OriginalScale.y, dragon2OriginalScale.z); // flip in the X-axis
                 animationProgressDragon2 = 0.0f;
             }
-
 
             if (isAnimatingDragon2) {
                 auto& dragon2 = gameObjects.at(DRAGON2_ID);
@@ -145,14 +148,17 @@ namespace lve {
 
                 if (animationProgressDragon2 <= 1.0f) {
                     dragon2.transform.translation = glm::mix(dragon2OriginalPosition, dragon2TargetPosition, animationProgressDragon2);
+                    dragon2.transform.scale = glm::mix(dragon2OriginalScale, dragon2TargetScale, animationProgressDragon2);
                 } else {
                     dragon2.transform.translation = dragon2TargetPosition;
+                    dragon2.transform.scale = dragon2TargetScale;
                     isAnimatingDragon2 = false;
-
-                    // Swap the original and target positions
                     std::swap(dragon2OriginalPosition, dragon2TargetPosition);
+                    std::swap(dragon2OriginalScale, dragon2TargetScale);
                 }
             }
+
+
 
 
 
