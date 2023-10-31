@@ -11,16 +11,28 @@
 #include <unordered_map>
 
 namespace lve {
+    struct AnimationKeyFrame {
+        glm::vec3 translation;
+        glm::vec3 rotation;
+        glm::vec3 scale;
+        float timeStamp;
+    };
+
+    struct AnimationSequence {
+        std::vector<AnimationKeyFrame> keyFrames;
+        float duration;
+    };
 
     struct TransformComponent {
         glm::vec3 translation{};
         glm::vec3 scale{1.0f, 1.0f, 1.0f};
         glm::vec3 rotation{0.0f};
 
-        // Need to go over base form of each in class.
-        // Need to show standard rotation matrix found in most books.
+        AnimationSequence animationSequence;
+        float currentTime = 0.0f;
         glm::mat4 mat4();
         glm::mat4 normalMatrix();
+        void update(float deltaTime);
     };
 
     struct PointLightComponent {

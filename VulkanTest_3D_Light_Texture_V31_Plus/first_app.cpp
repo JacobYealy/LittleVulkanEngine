@@ -8,19 +8,15 @@
 #include "systems/simple_render_system.hpp"
 #include "systems/point_light_system.hpp"
 #include "lve_buffer.hpp"
-
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
-#include <glm/gtc/constants.hpp>
-
-#include <stdexcept>
-#include <iostream>
 #include <array>
 #include <chrono>
 #include <map>
 
 namespace lve {
+
+    const float X_OFFSET = 1.0f;  // Adjust as needed
+    const float Y_OFFSET = 1.0f;  // Adjust as needed
 
     FirstApp::FirstApp() {
         // We need to add a pool for the textureImages.
@@ -107,6 +103,61 @@ namespace lve {
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS && !isAnimatingDragon1) {
+                isAnimatingDragon1 = true;
+                auto& dragon1 = gameObjects.at(DRAGON1_ID);
+                dragon1OriginalPosition = dragon1.transform.translation;
+                dragon1OriginalRotation = dragon1.transform.rotation;
+                dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+                animationProgressDragon1 = 0.0f;
+            }
+
+
+            if (isAnimatingDragon1) {
+                auto& dragon1 = gameObjects.at(DRAGON1_ID);
+                animationProgressDragon1 += frameTime;
+
+                if (animationProgressDragon1 <= 1.0f) {
+                    dragon1.transform.translation = glm::mix(dragon1OriginalPosition, dragon1TargetPosition, animationProgressDragon1);
+                } else {
+                    dragon1.transform.translation = dragon1TargetPosition;
+                    isAnimatingDragon1 = false;
+
+                    // Swap the original and target positions
+                    std::swap(dragon1OriginalPosition, dragon1TargetPosition);
+                }
+            }
+
+
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS && !isAnimatingDragon2) {
+                isAnimatingDragon2 = true;
+                auto& dragon2 = gameObjects.at(DRAGON2_ID);
+                dragon2OriginalPosition = dragon2.transform.translation;
+                dragon2OriginalRotation = dragon2.transform.rotation;
+                dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+                animationProgressDragon2 = 0.0f;
+            }
+
+
+            if (isAnimatingDragon2) {
+                auto& dragon2 = gameObjects.at(DRAGON2_ID);
+                animationProgressDragon2 += frameTime;
+
+                if (animationProgressDragon2 <= 1.0f) {
+                    dragon2.transform.translation = glm::mix(dragon2OriginalPosition, dragon2TargetPosition, animationProgressDragon2);
+                } else {
+                    dragon2.transform.translation = dragon2TargetPosition;
+                    isAnimatingDragon2 = false;
+
+                    // Swap the original and target positions
+                    std::swap(dragon2OriginalPosition, dragon2TargetPosition);
+                }
+            }
+
+
+
+
+
             cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
 
@@ -143,6 +194,7 @@ namespace lve {
  * as well as the configuration for point lights used in the scene.
  */
     void FirstApp::loadGameObjects() {
+
         // Load the planet model and set its properties
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         auto planet = LveGameObject::createGameObject();
@@ -152,23 +204,27 @@ namespace lve {
         planet.textureBinding = 2;
         gameObjects.emplace(planet.getId(), std::move(planet));
 
-        // Load the dragon model and set its properties
+        // Dragon 1
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
-        auto dragon = LveGameObject::createGameObject();
-        dragon.model = lveModel;
-        dragon.transform.translation = {-23.f, 10.f, 2.5f};
-        dragon.transform.scale = {-1.f, -1.f, -1.f};
-        dragon.textureBinding = 1;
-        gameObjects.emplace(dragon.getId(),std::move(dragon));
+        auto dragon1 = LveGameObject::createGameObject();
+        dragon1.model = lveModel;
+        dragon1.transform.translation = {-23.f, 10.f, 2.5f};
+        dragon1.transform.scale = {-1.f, -1.f, -1.f};
+        dragon1.textureBinding = 1;
+        DRAGON1_ID = dragon1.getId();
+        gameObjects.emplace(DRAGON1_ID, std::move(dragon1));
 
-        // Load the terrain model and set its properties
+
+        // Dragon 2
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
-        auto floor = LveGameObject::createGameObject();
-        floor.model = lveModel;
-        floor.transform.translation = {-27.f, 0.f, 2.5f};
-        floor.transform.scale = {1.f, 1.f, -1.f};
-        floor.textureBinding = 3;
-        gameObjects.emplace(floor.getId(),std::move(floor));
+        auto dragon2 = LveGameObject::createGameObject();
+        dragon2.model = lveModel;
+        dragon2.transform.translation = {-27.f, 0.f, 2.5f};
+        dragon2.transform.scale = {1.f, 1.f, -1.f};
+        dragon2.textureBinding = 3;
+        dragon2.textureBinding = 3;
+        DRAGON2_ID = dragon2.getId();
+        gameObjects.emplace(DRAGON2_ID, std::move(dragon2));
 
         // Load the sky model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
@@ -212,5 +268,13 @@ namespace lve {
             pointLight.transform.translation = position;
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));
         }
+
+
+        // For Dragon 1:
+        dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+
+        // For Dragon 2:
+        dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
+
     }
 }

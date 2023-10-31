@@ -68,4 +68,29 @@ namespace lve {
         return gameObj;
     }
 
+    void TransformComponent::update(float deltaTime) {
+        currentTime += deltaTime;
+        if (currentTime > animationSequence.duration) {
+            currentTime -= animationSequence.duration;
+        }
+        AnimationKeyFrame* prevFrame = nullptr;
+        AnimationKeyFrame* nextFrame = nullptr;
+        if (animationSequence.keyFrames.size() < 2) {
+            return;
+        }
+        for (size_t i = 0; i < animationSequence.keyFrames.size() - 1; i++) {
+            if (animationSequence.keyFrames[i].timeStamp <= currentTime && animationSequence.keyFrames[i+1].timeStamp > currentTime) {
+                prevFrame = &animationSequence.keyFrames[i];
+                nextFrame = &animationSequence.keyFrames[i+1];
+                break;
+            }
+        }
+
+        if (prevFrame && nextFrame) {
+            float alpha = (currentTime - prevFrame->timeStamp) / (nextFrame->timeStamp - prevFrame->timeStamp);
+            translation = glm::mix(prevFrame->translation, nextFrame->translation, alpha);
+            rotation = glm::mix(prevFrame->rotation, nextFrame->rotation, alpha);
+            scale = glm::mix(prevFrame->scale, nextFrame->scale, alpha);
+        }
+    }
 }

@@ -23,8 +23,21 @@
   <component name="ChangeListManager">
     <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Light objects silenced. Finished dueling dragons.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2023-10-04T22-34-01-0358.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lve_game_object.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/lve_game_object.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,12 +86,12 @@
   }
 }</component>
   <component name="RunManager" selected="CMake Application.VulkanTest_3D_Light_Texture_V31_Plus">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="VulkanTest_3D_Light_Texture_V31_Plus" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" RUN_TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VulkanTest_3D_Light_Texture_V31_Plus" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" RUN_TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
