@@ -62,8 +62,7 @@ namespace lve {
                 .addBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 4th texture
                 .build();
 
-        // Need to see if anything needs to be done here for the texture maps.
-        // Something isn't beting setup right for the Image Info, information is not getting freed correctly.
+
         std::vector<VkDescriptorSet> globalDescriptorSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT);
         for (int i = 0; i < globalDescriptorSets.size(); i++) {
             auto bufferInfo = uboBuffers[i]->descriptorInfo();
@@ -91,10 +90,16 @@ namespace lve {
 
         viewerObject.transform.translation.x = -25.0f; //left or right
         viewerObject.transform.translation.y = 5.0f; // height
-        viewerObject.transform.translation.z = -25.0f; //forward backward
+        viewerObject.transform.translation.z = -35.0f; //forward backward
         KeyboardMovementController cameraController{};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
+
+        // Planet animation definitions
+        const float ROTATION_SPEED = glm::radians(20.0f);
+        const float GROWTH_RATE = 0.05f;
+        bool fullRotationCompleted = false;
+
 
         while (!lveWindow.shouldClose()) {
 
@@ -103,6 +108,36 @@ namespace lve {
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
+
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_3) == GLFW_PRESS) {
+                if (!isAnimatingPlanet) { // Only start animating if not already doing so
+                    isAnimatingPlanet = true;
+                    auto& planet = gameObjects.at(PLANET_ID);
+                    planetOriginalPosition = planet.transform.translation;
+                    planetOriginalScale = planet.transform.scale;
+                    planetRotationAngle = 0.0f; // Reset rotation angle
+                    planetHasGrown = true;
+                }
+            }
+
+            // NEW: Animate planet if flag is set
+            if (isAnimatingPlanet) {
+                auto& planet = gameObjects.at(PLANET_ID);
+                planetRotationAngle += ROTATION_SPEED * frameTime;
+                planet.transform.rotation.y = planetRotationAngle;
+
+                if (planetHasGrown) {
+                    float growthFactor = 1.0f + (GROWTH_RATE * frameTime);
+                    planet.transform.scale *= growthFactor;
+                }
+
+                if (planetRotationAngle >= glm::two_pi<float>()) {
+                    isAnimatingPlanet = false; // Stop animating once a full rotation is completed
+                    planet.transform.translation = planetOriginalPosition;
+                    planet.transform.scale = planetOriginalScale;
+                }
+            }
+
 
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS && !isAnimatingDragon1) {
                 isAnimatingDragon1 = true;
@@ -122,15 +157,11 @@ namespace lve {
                     dragon1.transform.translation = glm::mix(dragon1OriginalPosition, dragon1TargetPosition, animationProgressDragon1);
                     dragon1.transform.scale = glm::mix(dragon1OriginalScale, dragon1TargetScale, animationProgressDragon1);
                 } else {
-                    dragon1.transform.translation = dragon1TargetPosition;
-                    dragon1.transform.scale = dragon1TargetScale;
+                    dragon1.transform.translation = dragon1OriginalPosition;
+                    dragon1.transform.scale = dragon1OriginalScale;
                     isAnimatingDragon1 = false;
-                    std::swap(dragon1OriginalPosition, dragon1TargetPosition);
-                    std::swap(dragon1OriginalScale, dragon1TargetScale);
                 }
             }
-
-
 
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS && !isAnimatingDragon2) {
                 isAnimatingDragon2 = true;
@@ -150,18 +181,11 @@ namespace lve {
                     dragon2.transform.translation = glm::mix(dragon2OriginalPosition, dragon2TargetPosition, animationProgressDragon2);
                     dragon2.transform.scale = glm::mix(dragon2OriginalScale, dragon2TargetScale, animationProgressDragon2);
                 } else {
-                    dragon2.transform.translation = dragon2TargetPosition;
-                    dragon2.transform.scale = dragon2TargetScale;
+                    dragon2.transform.translation = dragon2OriginalPosition;
+                    dragon2.transform.scale = dragon2OriginalScale;
                     isAnimatingDragon2 = false;
-                    std::swap(dragon2OriginalPosition, dragon2TargetPosition);
-                    std::swap(dragon2OriginalScale, dragon2TargetScale);
                 }
             }
-
-
-
-
-
 
 
             cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
@@ -208,7 +232,8 @@ namespace lve {
         planet.transform.translation = {-25.f, 5.f, -3.5f};
         planet.transform.scale = {1.f, 1.f, 1.f};
         planet.textureBinding = 2;
-        gameObjects.emplace(planet.getId(), std::move(planet));
+        PLANET_ID = planet.getId();
+        gameObjects.emplace(PLANET_ID, std::move(planet));
 
         // Dragon 1
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
@@ -269,7 +294,7 @@ namespace lve {
 
         // Instantiate the lights with the given positions and colors
         for (const auto& [colorIndex, position] : lightPositionsAndColors) {
-            auto pointLight = LveGameObject::makePointLight(3.f);
+            auto pointLight = LveGameObject::makePointLight(30.f);
             pointLight.color = lightColorsMap[colorIndex];
             pointLight.transform.translation = position;
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));

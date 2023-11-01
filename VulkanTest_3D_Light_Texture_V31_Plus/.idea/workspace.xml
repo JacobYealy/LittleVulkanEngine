@@ -84,11 +84,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="shaders" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="shaders" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -117,6 +112,10 @@
       <workItem from="1696427474998" duration="218000" />
       <workItem from="1696450501805" duration="52000" />
       <workItem from="1696458836766" duration="9934000" />
+      <workItem from="1698769665537" duration="2667000" />
+      <workItem from="1698844551601" duration="1523000" />
+      <workItem from="1698873323147" duration="33000" />
+      <workItem from="1698875140926" duration="2411000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>

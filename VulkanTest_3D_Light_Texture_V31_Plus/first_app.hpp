@@ -32,7 +32,15 @@ namespace lve {
         void run();
 
     private:
-        int DRAGON1_ID, DRAGON2_ID;
+        int DRAGON1_ID, DRAGON2_ID, PLANET_ID;
+
+        float planetRotationAngle = 0.0f;
+        bool shouldGrowPlanet = false;
+        bool planetHasGrown = false;
+        glm::vec3 planetOriginalScale;
+        glm::vec3 planetOriginalPosition;
+        bool isAnimatingPlanet = false;
+
 
         bool isAnimatingDragon1 = false;
         float animationProgressDragon1 = 0.0f;
