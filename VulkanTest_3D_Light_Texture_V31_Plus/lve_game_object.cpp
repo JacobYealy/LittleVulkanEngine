@@ -6,6 +6,7 @@
 
 namespace lve {
 
+
     glm::mat4 TransformComponent::mat4(){
         const float c3 = glm::cos(rotation.z);
         const float s3 = glm::sin(rotation.z);
@@ -16,21 +17,22 @@ namespace lve {
         return glm::mat4{
                 {
                         scale.x * (c1 * c3 + s1 * s2 * s3),
-                        scale.x * (c2 * s3),
-                        scale.x * (c1 * s2 * s3 - c3 * s1),
-                        0.0f},
+                                scale.x * (c2 * s3),
+                                               scale.x * (c1 * s2 * s3 - c3 * s1),
+                                                              0.0f},
                 {
                         scale.y * (c3 * s1 * s2 - c1 * s3),
-                        scale.y * (c2 * c3),
-                        scale.y * (c1 * c3 * s2 + s1 * s3),
-                        0.0f},
+                                scale.y * (c2 * c3),
+                                               scale.y * (c1 * c3 * s2 + s1 * s3),
+                                                              0.0f},
                 {
                         scale.z * (c2 * s1),
-                        scale.z * (-s2),
-                        scale.z * (c1 * c2),
-                        0.0f},
+                                scale.z * (-s2),
+                                               scale.z * (c1 * c2),
+                                                              0.0f},
                 {translation.x, translation.y, translation.z, 1.0f}};
     }
+
 
     glm::mat4 TransformComponent::normalMatrix(){
         const float c3 = glm::cos(rotation.z);
@@ -44,20 +46,21 @@ namespace lve {
                 {
                         invScale.x * (c1 * c3 + s1 * s2 * s3),
                         invScale.x * (c2 * s3),
-                        invScale.x * (c1 * s2 * s3 - c3 * s1),
-                        0.0f},
+                             invScale.x * (c1 * s2 * s3 - c3 * s1),
+                                   0.0f},
                 {
                         invScale.y * (c3 * s1 * s2 - c1 * s3),
                         invScale.y * (c2 * c3),
-                        invScale.y * (c1 * c3 * s2 + s1 * s3),
-                        0.0f},
+                             invScale.y * (c1 * c3 * s2 + s1 * s3),
+                                   0.0f},
                 {
                         invScale.z * (c2 * s1),
                         invScale.z * (-s2),
-                        invScale.z * (c1 * c2),
-                        0.0f},
+                             invScale.z * (c1 * c2),
+                                   0.0f},
                 {0.0f, 0.0f, 0.0f, 1.0f}};
-        }
+    }
+
 
     LveGameObject LveGameObject::makePointLight(float intensity, float radius, glm::vec3 color) {
         LveGameObject gameObj = LveGameObject::createGameObject();
@@ -68,29 +71,49 @@ namespace lve {
         return gameObj;
     }
 
-    void TransformComponent::update(float deltaTime) {
+
+
+
+    /**
+     * This is the update method for the TransformComponent.
+     * It will update the translation, rotation, and scale of the object.
+     * It will also update the animation sequence.
+     * @param deltaTime: The time since the last frame.
+     */
+    bool TransformComponent::update(float deltaTime) {
         currentTime += deltaTime;
+        // If animation is over, reset
         if (currentTime > animationSequence.duration) {
-            currentTime -= animationSequence.duration;
+            currentTime = 0.0f;
+            return false;
         }
-        AnimationKeyFrame* prevFrame = nullptr;
-        AnimationKeyFrame* nextFrame = nullptr;
-        if (animationSequence.keyFrames.size() < 2) {
-            return;
+        AnimationFrame* prevFrame = nullptr;
+        AnimationFrame* nextFrame = nullptr;
+        if (animationSequence.Frames.size() < 2) {
+            // Handle this case or simply return if there's nothing to be done
+            return false;
         }
-        for (size_t i = 0; i < animationSequence.keyFrames.size() - 1; i++) {
-            if (animationSequence.keyFrames[i].timeStamp <= currentTime && animationSequence.keyFrames[i+1].timeStamp > currentTime) {
-                prevFrame = &animationSequence.keyFrames[i];
-                nextFrame = &animationSequence.keyFrames[i+1];
+        for (size_t i = 0; i < animationSequence.Frames.size() - 1; i++) {
+            if (animationSequence.Frames[i].timeStamp <= currentTime && animationSequence.Frames[i+1].timeStamp > currentTime) {
+                prevFrame = &animationSequence.Frames[i];
+                nextFrame = &animationSequence.Frames[i+1];
                 break;
             }
         }
 
+
+        // If we found suitable frames, interpolate between them
         if (prevFrame && nextFrame) {
-            float alpha = (currentTime - prevFrame->timeStamp) / (nextFrame->timeStamp - prevFrame->timeStamp);
+            float alpha = (currentTime - prevFrame->timeStamp) / (nextFrame->timeStamp - prevFrame->timeStamp); // Alpha is the percentage of the way between the two frames.
             translation = glm::mix(prevFrame->translation, nextFrame->translation, alpha);
             rotation = glm::mix(prevFrame->rotation, nextFrame->rotation, alpha);
             scale = glm::mix(prevFrame->scale, nextFrame->scale, alpha);
+        } else {
+            // Handle the case where suitable frames were not found.
+            //printf("No suitable frames found\n");
         }
+        return true;
+
+
     }
 }

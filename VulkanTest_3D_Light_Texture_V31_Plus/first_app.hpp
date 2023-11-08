@@ -34,24 +34,18 @@ namespace lve {
     private:
         int DRAGON1_ID, DRAGON2_ID, PLANET_ID;
 
-        float planetRotationAngle = 0.0f;
-        bool shouldGrowPlanet = false;
-        bool planetHasGrown = false;
+        // Planet animation vars
         glm::vec3 planetOriginalScale;
         glm::vec3 planetOriginalPosition;
-        bool isAnimatingPlanet = false;
 
 
-        bool isAnimatingDragon1 = false;
-        float animationProgressDragon1 = 0.0f;
         glm::vec3 dragon1OriginalPosition;
         glm::vec3 dragon1OriginalRotation;
         glm::vec3 dragon1TargetPosition;
         glm::vec3 dragon1TargetRotation;
         glm::vec3 dragon1OriginalScale, dragon1TargetScale;
 
-        bool isAnimatingDragon2 = false;
-        float animationProgressDragon2 = 0.0f;
+
         glm::vec3 dragon2OriginalPosition;
         glm::vec3 dragon2OriginalRotation;
         glm::vec3 dragon2TargetPosition;
@@ -64,6 +58,9 @@ namespace lve {
 
         LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
         LveDevice lveDevice{lveWindow};
+        LveRenderer lveRenderer{lveWindow, lveDevice};
+        std::unique_ptr<LveDescriptorPool> globalPool{};
+        LveGameObject::Map gameObjects;
 
         // Texture for dragon
         std::shared_ptr<LveImage> textureImage = LveImage::createImageFromFile(lveDevice, "../textures/escamas.png");
@@ -79,9 +76,6 @@ namespace lve {
 
         std::vector<std::shared_ptr<LveImage>> textureImages; // For maintaining the list of textures
 
-        LveRenderer lveRenderer{lveWindow, lveDevice};
-        std::unique_ptr<LveDescriptorPool> globalPool{};
-        LveGameObject::Map gameObjects;
     };
 
 } // namespace lve

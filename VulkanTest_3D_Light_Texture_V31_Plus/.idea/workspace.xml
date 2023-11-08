@@ -21,16 +21,22 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Animation config implemented and dragons converge on the planet.&#10;&#10;Need:&#10;Planet animation (Spin and enlarge).&#10;Dragons to rotate after translation.">
+    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Planet fixed, animations reset to original position after animating.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lve_game_object.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/lve_game_object.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +121,17 @@
       <workItem from="1698769665537" duration="2667000" />
       <workItem from="1698844551601" duration="1523000" />
       <workItem from="1698873323147" duration="33000" />
-      <workItem from="1698875140926" duration="2411000" />
+      <workItem from="1698875140926" duration="2759000" />
+      <workItem from="1698941739886" duration="4201000" />
+      <workItem from="1699279222435" duration="2290000" />
+      <workItem from="1699304168794" duration="2772000" />
+      <workItem from="1699376839165" duration="104000" />
+      <workItem from="1699452927433" duration="598000" />
+      <workItem from="1699455496718" duration="785000" />
+      <workItem from="1699458519011" duration="1955000" />
+      <workItem from="1699460716875" duration="427000" />
+      <workItem from="1699461314948" duration="1000" />
+      <workItem from="1699461494112" duration="2458000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
@@ -187,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698711866420</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Planet fixed, animations reset to original position after animating.">
+      <created>1698879736016</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698879736016</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +227,7 @@
     <MESSAGE value="Lighting the dragons and planet" />
     <MESSAGE value="Light objects silenced. Finished dueling dragons." />
     <MESSAGE value="Animation config implemented and dragons converge on the planet.&#10;&#10;Need:&#10;Planet animation (Spin and enlarge).&#10;Dragons to rotate after translation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Animation config implemented and dragons converge on the planet.&#10;&#10;Need:&#10;Planet animation (Spin and enlarge).&#10;Dragons to rotate after translation." />
+    <MESSAGE value="Planet fixed, animations reset to original position after animating." />
+    <option name="LAST_COMMIT_MESSAGE" value="Planet fixed, animations reset to original position after animating." />
   </component>
 </project>

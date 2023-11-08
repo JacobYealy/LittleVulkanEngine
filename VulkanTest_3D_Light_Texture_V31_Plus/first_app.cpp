@@ -98,7 +98,6 @@ namespace lve {
         // Planet animation definitions
         const float ROTATION_SPEED = glm::radians(20.0f);
         const float GROWTH_RATE = 0.05f;
-        bool fullRotationCompleted = false;
 
 
         while (!lveWindow.shouldClose()) {
@@ -109,87 +108,28 @@ namespace lve {
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_3) == GLFW_PRESS) {
-                if (!isAnimatingPlanet) { // Only start animating if not already doing so
-                    isAnimatingPlanet = true;
-                    auto& planet = gameObjects.at(PLANET_ID);
-                    planetOriginalPosition = planet.transform.translation;
-                    planetOriginalScale = planet.transform.scale;
-                    planetRotationAngle = 0.0f; // Reset rotation angle
-                    planetHasGrown = true;
-                }
-            }
-
-            // NEW: Animate planet if flag is set
-            if (isAnimatingPlanet) {
-                auto& planet = gameObjects.at(PLANET_ID);
-                planetRotationAngle += ROTATION_SPEED * frameTime;
-                planet.transform.rotation.y = planetRotationAngle;
-
-                if (planetHasGrown) {
-                    float growthFactor = 1.0f + (GROWTH_RATE * frameTime);
-                    planet.transform.scale *= growthFactor;
-                }
-
-                if (planetRotationAngle >= glm::two_pi<float>()) {
-                    isAnimatingPlanet = false; // Stop animating once a full rotation is completed
-                    planet.transform.translation = planetOriginalPosition;
-                    planet.transform.scale = planetOriginalScale;
-                }
-            }
-
-
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS && !isAnimatingDragon1) {
-                isAnimatingDragon1 = true;
-                auto& dragon1 = gameObjects.at(DRAGON1_ID);
-                dragon1OriginalPosition = dragon1.transform.translation;
-                dragon1OriginalScale = dragon1.transform.scale;
-                dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(4.0f, -3.0f, 7.0f);
-                dragon1TargetScale = glm::vec3(-dragon1OriginalScale.x, dragon1OriginalScale.y, dragon1OriginalScale.z); // flip in the X-axis
-                animationProgressDragon1 = 0.0f;
-            }
-
-            if (isAnimatingDragon1) {
-                auto& dragon1 = gameObjects.at(DRAGON1_ID);
-                animationProgressDragon1 += frameTime;
-
-                if (animationProgressDragon1 <= 1.0f) {
-                    dragon1.transform.translation = glm::mix(dragon1OriginalPosition, dragon1TargetPosition, animationProgressDragon1);
-                    dragon1.transform.scale = glm::mix(dragon1OriginalScale, dragon1TargetScale, animationProgressDragon1);
-                } else {
-                    dragon1.transform.translation = dragon1OriginalPosition;
-                    dragon1.transform.scale = dragon1OriginalScale;
-                    isAnimatingDragon1 = false;
-                }
-            }
-
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS && !isAnimatingDragon2) {
-                isAnimatingDragon2 = true;
-                auto& dragon2 = gameObjects.at(DRAGON2_ID);
-                dragon2OriginalPosition = dragon2.transform.translation;
-                dragon2OriginalScale = dragon2.transform.scale;
-                dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, -7.0f);
-                dragon2TargetScale = glm::vec3(-dragon2OriginalScale.x, dragon2OriginalScale.y, dragon2OriginalScale.z); // flip in the X-axis
-                animationProgressDragon2 = 0.0f;
-            }
-
-            if (isAnimatingDragon2) {
-                auto& dragon2 = gameObjects.at(DRAGON2_ID);
-                animationProgressDragon2 += frameTime;
-
-                if (animationProgressDragon2 <= 1.0f) {
-                    dragon2.transform.translation = glm::mix(dragon2OriginalPosition, dragon2TargetPosition, animationProgressDragon2);
-                    dragon2.transform.scale = glm::mix(dragon2OriginalScale, dragon2TargetScale, animationProgressDragon2);
-                } else {
-                    dragon2.transform.translation = dragon2OriginalPosition;
-                    dragon2.transform.scale = dragon2OriginalScale;
-                    isAnimatingDragon2 = false;
-                }
-            }
-
-
             cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+
+            // Check for key presses and start the animation for the respective game object
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS) {
+                auto& dragon1 = gameObjects.at(DRAGON1_ID);
+                dragon1.transform.currentTime = 0.0f; // Restart dragon1 animation
+            }
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS) {
+                auto& dragon2 = gameObjects.at(DRAGON2_ID);
+                dragon2.transform.currentTime = 0.0f; // Restart dragon2 animation
+            }
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_3) == GLFW_PRESS) {
+                auto& planet = gameObjects.at(PLANET_ID);
+                planet.transform.currentTime = 0.0f; // Restart planet animation
+            }
+
+            // Update game objects and handle animations
+            for (auto& kv : gameObjects) {
+                auto& obj = kv.second;
+                obj.transform.update(frameTime);
+            }
 
             float aspect = lveRenderer.getAspectRatio();
             camera.setPerspectiveProjection(glm::radians(30.f), aspect, 1.1f, 100.f);
@@ -227,35 +167,71 @@ namespace lve {
 
         // Load the planet model and set its properties
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
-        auto planet = LveGameObject::createGameObject();
+        LveGameObject planet = LveGameObject::createGameObject();
         planet.model = lveModel;
         planet.transform.translation = {-25.f, 5.f, -3.5f};
         planet.transform.scale = {1.f, 1.f, 1.f};
         planet.textureBinding = 2;
+
+        // Planet animation setup
+        planet.transform.animationSequence = {
+                {
+                        // Start frame
+                        {planet.transform.translation, glm::vec3(0.0f), planet.transform.scale, 0.0f},
+                        // End frame - full rotation over 10 seconds
+                        {planet.transform.translation, glm::vec3(0.0f, 0.0f, glm::two_pi<float>()), planet.transform.scale, 10.0f},
+                },
+                10.0f // Duration of the animation in seconds
+        };
+
         PLANET_ID = planet.getId();
         gameObjects.emplace(PLANET_ID, std::move(planet));
 
         // Dragon 1
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
-        auto dragon1 = LveGameObject::createGameObject();
+        LveGameObject dragon1 = LveGameObject::createGameObject();
         dragon1.model = lveModel;
         dragon1.transform.translation = {-23.f, 10.f, 2.5f};
         dragon1.transform.scale = {-1.f, -1.f, -1.f};
         dragon1.textureBinding = 1;
+        // Dragon 1 animation setup
+        dragon1.transform.animationSequence = {
+                {
+                        // Start frame
+                        {dragon1.transform.translation, glm::vec3(0.0f), dragon1.transform.scale, 0.0f},
+                        // Mid frame - Dragon 1 moves
+                        {dragon1.transform.translation - glm::vec3(4.0f, -3.0f, 7.0f), glm::vec3(0.0f), glm::vec3(-dragon1.transform.scale.x, dragon1.transform.scale.y, dragon1.transform.scale.z), 1.0f},
+                        // End frame - Dragon 1 returns to start
+                        {dragon1.transform.translation, glm::vec3(0.0f), dragon1.transform.scale, 2.0f},
+                },
+                2.0f // Duration of the animation in seconds
+        };
         DRAGON1_ID = dragon1.getId();
         gameObjects.emplace(DRAGON1_ID, std::move(dragon1));
 
-
         // Dragon 2
-        lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
-        auto dragon2 = LveGameObject::createGameObject();
-        dragon2.model = lveModel;
+        LveGameObject dragon2 = LveGameObject::createGameObject();
+        dragon2.model = lveModel; // Reuse the model loaded for dragon 1
         dragon2.transform.translation = {-27.f, 0.f, 2.5f};
         dragon2.transform.scale = {1.f, 1.f, -1.f};
         dragon2.textureBinding = 3;
-        dragon2.textureBinding = 3;
+        // Dragon 2 animation setup
+        dragon2.transform.animationSequence = {
+                {
+                        // Start frame
+                        {dragon2.transform.translation, glm::vec3(0.0f), dragon2.transform.scale, 0.0f},
+                        // Mid frame - Dragon 2 moves
+                        {dragon2.transform.translation + glm::vec3(X_OFFSET, Y_OFFSET, -7.0f), glm::vec3(0.0f), glm::vec3(-dragon2.transform.scale.x, dragon2.transform.scale.y, dragon2.transform.scale.z), 1.0f},
+                        // End frame - Dragon 2 returns to start
+                        {dragon2.transform.translation, glm::vec3(0.0f), dragon2.transform.scale, 2.0f},
+                },
+                2.0f // Duration of the animation in seconds
+        };
         DRAGON2_ID = dragon2.getId();
         gameObjects.emplace(DRAGON2_ID, std::move(dragon2));
+
+
+
 
         // Load the sky model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
@@ -266,7 +242,8 @@ namespace lve {
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
 
-        // Define light colors
+
+                        // Define light colors
         std::map<int, glm::vec3> lightColorsMap{
                 {0, {.1f, .1f, 1.f}},  // Blue
                 {1, {1.f, .1f, .1f}},  // Red
@@ -300,12 +277,6 @@ namespace lve {
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));
         }
 
-
-        // For Dragon 1:
-        dragon1TargetPosition = dragon1OriginalPosition - glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
-
-        // For Dragon 2:
-        dragon2TargetPosition = dragon2OriginalPosition + glm::vec3(X_OFFSET, Y_OFFSET, 0.0f);
 
     }
 }
