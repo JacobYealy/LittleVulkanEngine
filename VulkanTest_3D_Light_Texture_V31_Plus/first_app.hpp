@@ -38,14 +38,14 @@ namespace lve {
         glm::vec3 planetOriginalScale;
         glm::vec3 planetOriginalPosition;
 
-
+        // Dragon 1 animation vars
         glm::vec3 dragon1OriginalPosition;
         glm::vec3 dragon1OriginalRotation;
         glm::vec3 dragon1TargetPosition;
         glm::vec3 dragon1TargetRotation;
         glm::vec3 dragon1OriginalScale, dragon1TargetScale;
 
-
+        // Dragon 2 animation vars
         glm::vec3 dragon2OriginalPosition;
         glm::vec3 dragon2OriginalRotation;
         glm::vec3 dragon2TargetPosition;
@@ -56,7 +56,7 @@ namespace lve {
 
         void loadGameObjects();
 
-        LveWindow lveWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
+        LveWindow lveWindow{WIDTH, HEIGHT, "Dueling Dragons!"};
         LveDevice lveDevice{lveWindow};
         LveRenderer lveRenderer{lveWindow, lveDevice};
         std::unique_ptr<LveDescriptorPool> globalPool{};

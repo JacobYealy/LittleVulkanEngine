@@ -3,9 +3,7 @@
 //
 #include "lve_game_object.hpp"
 
-
 namespace lve {
-
 
     glm::mat4 TransformComponent::mat4(){
         const float c3 = glm::cos(rotation.z);
@@ -71,16 +69,15 @@ namespace lve {
         return gameObj;
     }
 
-
-
-
     /**
-     * This is the update method for the TransformComponent.
-     * It will update the translation, rotation, and scale of the object.
-     * It will also update the animation sequence.
+     * Animates an object and the animation sequence.
+     * This means it controls translation, scale, and rotation.
      * @param deltaTime: The time since the last frame.
      */
     bool TransformComponent::update(float deltaTime) {
+        if (!isPlaying) {
+            return false; // Return immediately if not playing
+        }
         currentTime += deltaTime;
         // If animation is over, reset
         if (currentTime > animationSequence.duration) {
@@ -90,7 +87,6 @@ namespace lve {
         AnimationFrame* prevFrame = nullptr;
         AnimationFrame* nextFrame = nullptr;
         if (animationSequence.Frames.size() < 2) {
-            // Handle this case or simply return if there's nothing to be done
             return false;
         }
         for (size_t i = 0; i < animationSequence.Frames.size() - 1; i++) {
@@ -102,18 +98,14 @@ namespace lve {
         }
 
 
-        // If we found suitable frames, interpolate between them
+        // Linear Interpolation (mix)
         if (prevFrame && nextFrame) {
-            float alpha = (currentTime - prevFrame->timeStamp) / (nextFrame->timeStamp - prevFrame->timeStamp); // Alpha is the percentage of the way between the two frames.
+            float alpha = (currentTime - prevFrame->timeStamp) / (nextFrame->timeStamp - prevFrame->timeStamp); // Progress between frames
             translation = glm::mix(prevFrame->translation, nextFrame->translation, alpha);
             rotation = glm::mix(prevFrame->rotation, nextFrame->rotation, alpha);
             scale = glm::mix(prevFrame->scale, nextFrame->scale, alpha);
-        } else {
-            // Handle the case where suitable frames were not found.
-            //printf("No suitable frames found\n");
         }
         return true;
-
 
     }
 }

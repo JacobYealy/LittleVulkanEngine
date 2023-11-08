@@ -95,43 +95,51 @@ namespace lve {
 
         auto currentTime = std::chrono::high_resolution_clock::now();
 
-        // Planet animation definitions
-        const float ROTATION_SPEED = glm::radians(20.0f);
-        const float GROWTH_RATE = 0.05f;
-
-
         while (!lveWindow.shouldClose()) {
 
             glfwPollEvents();
-
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
 
+            // Update camera and aspect ratio
             cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+            float aspect = lveRenderer.getAspectRatio();
+            camera.setPerspectiveProjection(glm::radians(30.f), aspect, 1.1f, 100.f);
 
-            // Check for key presses and start the animation for the respective game object
+            // Check for key presses and toggle the animation for the game objects
+            auto& dragon1 = gameObjects.at(DRAGON1_ID);
+            auto& dragon2 = gameObjects.at(DRAGON2_ID);
+            auto& planet = gameObjects.at(PLANET_ID);
+
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS) {
-                auto& dragon1 = gameObjects.at(DRAGON1_ID);
                 dragon1.transform.currentTime = 0.0f; // Restart dragon1 animation
+                dragon1.transform.isPlaying = true;
             }
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS) {
-                auto& dragon2 = gameObjects.at(DRAGON2_ID);
                 dragon2.transform.currentTime = 0.0f; // Restart dragon2 animation
+                dragon2.transform.isPlaying = true;
             }
             if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_3) == GLFW_PRESS) {
-                auto& planet = gameObjects.at(PLANET_ID);
                 planet.transform.currentTime = 0.0f; // Restart planet animation
+                planet.transform.isPlaying = true;
             }
 
-            // Update game objects and handle animations
+            // Iterates over all stored game objects and updates if they are set to play.
+            // kv first is the key in the key value pair, kv second is the lveGameObject in question
             for (auto& kv : gameObjects) {
                 auto& obj = kv.second;
-                obj.transform.update(frameTime);
+                // Stops the auto playing feature
+                if (obj.transform.isPlaying) {
+                    bool continuePlaying = obj.transform.update(frameTime);
+                    if (!continuePlaying) {
+                        obj.transform.isPlaying = false; // Stop the animation when it's done
+                    }
+                }
             }
 
-            float aspect = lveRenderer.getAspectRatio();
+            aspect = lveRenderer.getAspectRatio();
             camera.setPerspectiveProjection(glm::radians(30.f), aspect, 1.1f, 100.f);
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 int frameIndex = lveRenderer.getFrameIndex();
