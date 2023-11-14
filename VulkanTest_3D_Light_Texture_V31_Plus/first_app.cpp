@@ -23,7 +23,7 @@ namespace lve {
         globalPool = LveDescriptorPool::Builder(lveDevice)
                 .setMaxSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT)
                 .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LveSwapChain::MAX_FRAMES_IN_FLIGHT)
-                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 4 * LveSwapChain::MAX_FRAMES_IN_FLIGHT) // Adjusted for 3 textures
+                .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 5 * LveSwapChain::MAX_FRAMES_IN_FLIGHT) // Adjusted for 5 textures
                 .build();
 
         loadGameObjects();
@@ -60,6 +60,7 @@ namespace lve {
                 .addBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 2nd texture
                 .addBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 3rd texture
                 .addBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 4th texture
+                .addBinding(5, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,VK_SHADER_STAGE_FRAGMENT_BIT) // Added 5th texture
                 .build();
 
 
@@ -70,12 +71,14 @@ namespace lve {
             auto imageInfo2 = terrainTextureImage->descriptorImageInfo();  // Added
             auto imageInfo3 = dinoTextureImage->descriptorImageInfo();      // Added
             auto imageInfo4 = skyTextureImage->descriptorImageInfo();      // Added
+            auto imageInfo5 = skyTextureImage->descriptorImageInfo();      // Added
             LveDescriptorWriter(*globalSetLayout, *globalPool)
                     .writeBuffer(0, &bufferInfo)
                     .writeImage(1, &imageInfo1)
                     .writeImage(2, &imageInfo2)       // Added
                     .writeImage(3, &imageInfo3)       // Added
                     .writeImage(4, &imageInfo4)       // Added
+                    .writeImage(5, &imageInfo4)       // Added
                     .build(globalDescriptorSets[i]);
         }
 
@@ -250,8 +253,16 @@ namespace lve {
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
 
+        // Load the black hole model and set its properties
+        lveModel = LveModel::createModelFromFile(lveDevice, "../models/A2.obj");
+        auto hole = LveGameObject::createGameObject();
+        hole.model = lveModel;
+        hole.transform.translation = {-27.f, 0.f, 2.5f};
+        hole.textureBinding = 5;
+        gameObjects.emplace(hole.getId(),std::move(hole));
 
-                        // Define light colors
+
+        // Define light colors
         std::map<int, glm::vec3> lightColorsMap{
                 {0, {.1f, .1f, 1.f}},  // Blue
                 {1, {1.f, .1f, .1f}},  // Red

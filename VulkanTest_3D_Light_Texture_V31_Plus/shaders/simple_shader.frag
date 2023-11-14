@@ -25,6 +25,7 @@ layout (set = 0, binding = 1) uniform sampler2D textSampler;
 layout (set = 0, binding = 2) uniform sampler2D textSampler2; //Add more for extra textures
 layout (set = 0, binding = 3) uniform sampler2D textSampler3;
 layout (set = 0, binding = 4) uniform sampler2D textSampler4;
+layout (set = 0, binding = 5) uniform sampler2D textSampler5;
 
 layout(push_constant) uniform Push {
     mat4 modelMatrix;
@@ -69,6 +70,8 @@ void main()
     tFragColor = texture(textSampler3, fragTexCoord);
     if (fragTextureId == 4)
     tFragColor = texture(textSampler4, fragTexCoord);
+    if (fragTextureId == 5)
+    tFragColor = texture(textSampler5, fragTexCoord);
 
     outColor = vec4(diffuseLight * tFragColor.xyz + specularLight * tFragColor.xyz,1.0);
 }

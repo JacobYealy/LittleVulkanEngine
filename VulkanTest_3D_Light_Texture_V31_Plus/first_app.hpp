@@ -74,6 +74,9 @@ namespace lve {
         //Texture for sky
         std::shared_ptr<LveImage> skyTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/sky.png");
 
+        //Texture for black hole
+        std::shared_ptr<LveImage> holeTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/galaxy.jpg");
+
         std::vector<std::shared_ptr<LveImage>> textureImages; // For maintaining the list of textures
 
     };
