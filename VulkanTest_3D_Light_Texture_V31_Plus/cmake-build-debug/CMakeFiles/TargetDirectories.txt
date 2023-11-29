@@ -1,8 +1,0 @@
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/CMakeFiles/shaders.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/lib/CMakeFiles/edit_cache.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/lib/CMakeFiles/rebuild_cache.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/systems/CMakeFiles/edit_cache.dir
-/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus/cmake-build-debug/systems/CMakeFiles/rebuild_cache.dir

@@ -1,7 +1,7 @@
-# LVE 3D Model Integration
+# 3D Model Integration
 Jacob Yealy   
 Computer Graphics  
-Project 4
+Project 4 
 
 ## Table of contents:
 - [Concept](#concept)
@@ -15,7 +15,7 @@ The purpose of the chosen models are to mock dueling dragons around a planet.
 
 ## Progression
 
-![image](https://github.com/JacobYealy/LittleVulkanEngine/assets/69500002/179e4bcd-0a1d-4fd9-b708-7f7b9f81f021)
+![progress.png](textures%2Fprogress.png)
 
 
 ### References

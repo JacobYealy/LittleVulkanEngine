@@ -10,10 +10,7 @@
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated>
-      <config projectName="VulkanTest_3D_Light_Texture_V31_Plus" targetName="VulkanTest_3D_Light_Texture_V31_Plus" />
-      <config projectName="VulkanTest_3D_Light_Texture_V31_Plus" targetName="shaders" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -21,22 +18,126 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Functional with animation system.">
+    <list default="true" id="41b922cf-371f-48ca-aca2-5ce9b7a2cbd5" name="Changes" comment="Asteroid added. Asteroids to follow dragon heads.">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/VulkanTest_3D_Light_Texture_V31_Plus.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/first_app.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/simple_shader.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag.spv" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/simple_shader.frag.spv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists_UpdateNotes.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-3957a87c1f41d1b53b77.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-d0dbae635994ddedbe31.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-2e28cd2f432f0c1aed92.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-lib-Debug-c12f15c6f888b43a891c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-systems-Debug-e0dfad637ed7debbdcc9.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-VulkanTest_3D_Light_Texture_V31_Plus-Debug-19c16a5d92c1ba42a8d5.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-shaders-Debug-810e6ce9eadd53a6cc66.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-99265b04de7ada3aac9e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.24.2/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_buffer.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_camera.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_descriptors.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_device.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_image.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_model.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_pipeline.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_renderer.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_swap_chain.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_window.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/VulkanTest_3D_Light_Texture_V31_Plus" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/lib/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/systems/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/first_app.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboard_movement_controller.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboard_movement_controller.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tol/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tol/stb_image.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tol/tiny_obj_loader.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_buffer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_buffer.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_camera.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_camera.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_descriptors.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_descriptors.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_device.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_device.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_frame_info.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_game_object.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_image.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_image.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_model.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_model.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_pipeline.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_pipeline.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_renderer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_renderer.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_swap_chain.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_swap_chain.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_utils.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_window.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lve_window.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Venus_1K.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dragon.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/sky.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/venus.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/point_light.frag" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/point_light.frag.spv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/point_light.vert" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/point_light.vert.spv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.frag.spv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.vert" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/simple_shader.vert.spv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/systems/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/systems/point_light_system.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/systems/point_light_system.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/systems/simple_render_system.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/systems/simple_render_system.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/blue.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/bluedragon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/escamas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/planetary.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/progress.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/sky.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/space.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +155,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="p5_animation" />
+      </map>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -67,43 +175,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/jy0441/CG/transforms/VulkanTest_3D_Light_Texture_V31_Plus&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/home/jy0441/CG/transforms",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="CMake Application.VulkanTest_3D_Light_Texture_V31_Plus">
+}]]></component>
+  <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VulkanTest_3D_Light_Texture_V31_Plus" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" RUN_TARGET_NAME="VulkanTest_3D_Light_Texture_V31_Plus">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="shaders" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="VulkanTest_3D_Light_Texture_V31_Plus" TARGET_NAME="shaders" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="CMake Application.shaders" />
-      <item itemvalue="CMake Application.VulkanTest_3D_Light_Texture_V31_Plus" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -141,7 +235,14 @@
       <workItem from="1699552548389" duration="468000" />
       <workItem from="1699976059891" duration="22000" />
       <workItem from="1699976120715" duration="1000" />
-      <workItem from="1699985509415" duration="2216000" />
+      <workItem from="1699985509415" duration="2490000" />
+      <workItem from="1699992218287" duration="1041000" />
+      <workItem from="1700058622902" duration="640000" />
+      <workItem from="1700088777355" duration="79000" />
+      <workItem from="1700238102781" duration="31000" />
+      <workItem from="1701042891304" duration="7732000" />
+      <workItem from="1701194320009" duration="624000" />
+      <workItem from="1701298358291" duration="505000" />
     </task>
     <task id="LOCAL-00001" summary="Updates to video 31">
       <created>1696275507639</created>
@@ -234,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699465125351</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Asteroid added. Asteroids to follow dragon heads.">
+      <created>1699988012384</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1699988012384</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +362,7 @@
     <MESSAGE value="Planet fixed, animations reset to original position after animating." />
     <MESSAGE value="Moves by itself using animation system" />
     <MESSAGE value="Functional with animation system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Functional with animation system." />
+    <MESSAGE value="Asteroid added. Asteroids to follow dragon heads." />
+    <option name="LAST_COMMIT_MESSAGE" value="Asteroid added. Asteroids to follow dragon heads." />
   </component>
 </project>
