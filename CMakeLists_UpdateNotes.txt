@@ -1,0 +1,23 @@
+...
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(lib)
+add_subdirectory(systems)
+
+// Shader Stuff Here.
+
+
+// File Groupings here.
+
+set(SYSTEM_INCLUDES  ${CMAKE_CURRENT_SOURCE_DIR}/systems/simple_render_system.cpp ${CMAKE_CURRENT_SOURCE_DIR}/systems/point_light_system.cpp)
+
+// Make sure the group names match yours.
+add_executable(VulkanTest main.cpp ${LVE_INCLUDES} ${MY_SHADERS} ${MY_INCLUDES} ${SYSTEM_INCLUDES})
+
+// This is where we connect in the files in the tol dir and the stuff in the systems dir.
+target_include_directories (VulkanTest PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/lib/tol ${CMAKE_CURRENT_SOURCE_DIR}/systems)
+
+// Final build stuff here.
+
+
