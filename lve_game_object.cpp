@@ -5,14 +5,15 @@
 
 namespace lve {
 
-    glm::mat4 TransformComponent::mat4(){
+    glm::mat4 TransformComponent::mat4(const glm::mat4& parentTransform) {
         const float c3 = glm::cos(rotation.z);
         const float s3 = glm::sin(rotation.z);
         const float c2 = glm::cos(rotation.y);
         const float s2 = glm::sin(rotation.y);
         const float c1 = glm::cos(rotation.x);
         const float s1 = glm::sin(rotation.x);
-        return glm::mat4{
+
+        glm::mat4 localTransform = glm::mat4{
                 {
                         scale.x * (c1 * c3 + s1 * s2 * s3),
                                 scale.x * (c2 * s3),
@@ -28,7 +29,10 @@ namespace lve {
                                 scale.z * (-s2),
                                                scale.z * (c1 * c2),
                                                               0.0f},
-                {translation.x, translation.y, translation.z, 1.0f}};
+                {translation.x, translation.y, translation.z, 1.0f}
+        };
+
+        return parentTransform * localTransform;
     }
 
 
@@ -108,4 +112,24 @@ namespace lve {
         return true;
 
     }
+
+
+
+    void LveGameObject::setParent(LveGameObject* newParent) {
+        parent = newParent;
+    }
+
+    void LveGameObject::addChild(std::unique_ptr<LveGameObject> child) {
+        child->setParent(this);
+        children.push_back(std::move(child));
+    }
+
+    LveGameObject* LveGameObject::getParent() const {
+        return parent;
+    }
+
+    const std::vector<std::unique_ptr<LveGameObject>>& LveGameObject::getChildren() const {
+        return children;
+    }
+
 }

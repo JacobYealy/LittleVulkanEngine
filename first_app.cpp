@@ -197,6 +197,7 @@ namespace lve {
 
         PLANET_ID = planet.getId();
         gameObjects.emplace(PLANET_ID, std::move(planet));
+        // Reference to the planet object
 
 
         // Create and set up the second planet
@@ -267,14 +268,15 @@ namespace lve {
         std::shared_ptr<LveModel> asteroidModel = LveModel::createModelFromFile(lveDevice, "../models/asteroid.obj");
 
         // Create smaller asteroids orbiting around the planet
-        for (int i = 0; i < 2; ++i) {  // 4 asteroids around the planet
+        for (int i = 0; i < 2; ++i) {
             LveGameObject asteroid = LveGameObject::createGameObject();
             asteroid.model = asteroidModel;
             // Position relative to the planet, with some offset
             asteroid.transform.translation = {-26.f + i * 2.0f, 4.f + i * 1.5f, -3.5f + i * 1.0f};
-            asteroid.transform.scale = {0.25f, 0.25f, 0.25f};  // Smaller size
+            asteroid.transform.scale = {0.25f, 0.25f, 0.25f};
             asteroid.textureBinding = 5;
-            gameObjects.emplace(asteroid.getId(), std::move(asteroid));
+
+            // Set the planet as the parent of the asteroid
         }
 
         // Define light colors

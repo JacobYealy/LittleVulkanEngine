@@ -40,7 +40,7 @@ namespace lve {
         glm::vec3 rotation{0.0f};
         AnimationSequence animationSequence;
         float currentTime = 0.0f;
-        glm::mat4 mat4();
+        glm::mat4 mat4(const glm::mat4& parentTransform = glm::mat4(1.0f));
         glm::mat4 normalMatrix();
         bool update(float deltaTime);
     };
@@ -53,6 +53,12 @@ namespace lve {
 
     class LveGameObject {
     public:
+        // Parent-child relationship methods
+        void setParent(LveGameObject* parent);
+        void addChild(std::unique_ptr<LveGameObject> child);
+        LveGameObject* getParent() const;
+        const std::vector<std::unique_ptr<LveGameObject>>& getChildren() const;
+
         using id_t = unsigned int;
         using Map = std::unordered_map<id_t, LveGameObject>;
 
@@ -85,6 +91,10 @@ namespace lve {
 
 
     private:
+        // Parent and children
+        LveGameObject* parent = nullptr;
+        std::vector<std::unique_ptr<LveGameObject>> children;
+
         LveGameObject(id_t id) : id(id) {}
         id_t id;
     };
