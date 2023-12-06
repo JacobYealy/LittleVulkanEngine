@@ -271,18 +271,17 @@ namespace lve {
         for (int i = 0; i < 2; ++i) {
             LveGameObject asteroid = LveGameObject::createGameObject();
             asteroid.model = asteroidModel;
-            // Position relative to the planet, with some offset
             asteroid.transform.translation = {1.0f + i * 1.0f, 1.0f + i * 0.5f, 1.0f + i * 0.5f};
             asteroid.transform.scale = {0.25f, 0.25f, 0.25f};
             asteroid.textureBinding = 5;
 
-            // Add the asteroid to the gameObjects map
             auto asteroidID = asteroid.getId();
             gameObjects.emplace(asteroidID, std::move(asteroid));
 
             // Set the planet as the parent of the asteroid
             gameObjects[asteroidID].setParent(&gameObjects[PLANET_ID]);
         }
+
 
         // Define light colors
         std::map<int, glm::vec3> lightColorsMap{
