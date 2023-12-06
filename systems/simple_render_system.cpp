@@ -14,25 +14,20 @@
 
 namespace lve {
 
-    struct SimplePushConstantData {
-        glm::mat4 modelMatrix{1.f};
-        glm::mat4 normalMatrix{1.f}; // Is really just a 3x3 matrix, so we will use the extra values to send data.
-        // normalMatrix[3][3] will be the textureBinding;
-    };
-
-    // 16 bytes for offset, 12 bytes for color - aligns to 16 bytes.
-    // Each new value must end or begin on a 4 byte boundary.
-    uint32_t pushConstantDataSize = sizeof(SimplePushConstantData); //16 + 12;
-
-    SimpleRenderSystem::SimpleRenderSystem(LveDevice &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : lveDevice{device} {
+    // Constructor
+    SimpleRenderSystem::SimpleRenderSystem(LveDevice &device, VkRenderPass renderPass,
+                                           VkDescriptorSetLayout globalSetLayout)
+            : lveDevice{device} {
         createPipelineLayout(globalSetLayout);
         createPipeline(renderPass);
     }
 
+    // Destructor
     SimpleRenderSystem::~SimpleRenderSystem() {
         vkDestroyPipelineLayout(lveDevice.device(), pipelineLayout, nullptr);
     }
 
+    // Create pipeline layout
     void SimpleRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
         VkPushConstantRange pushConstantRange{};
         pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -54,8 +49,9 @@ namespace lve {
         }
     }
 
+    // Create pipeline
     void SimpleRenderSystem::createPipeline(VkRenderPass renderPass) {
-        assert (pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
+        assert(pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
         PipelineConfigInfo pipelineConfig{};
         LvePipeline::defaultPipelineConfigInfo(pipelineConfig);
@@ -70,6 +66,7 @@ namespace lve {
         );
     }
 
+    // Render method
     void SimpleRenderSystem::render(FrameInfo &frameInfo) {
         lvePipeline->bind(frameInfo.commandBuffer);
 
@@ -81,23 +78,34 @@ namespace lve {
                 &frameInfo.globalDescriptorSet,
                 0, nullptr);
 
-        for (auto &kv : frameInfo.gameObjects) {
-            auto &gameObject = kv.second;
-            if (gameObject.model == nullptr) continue;
-            SimplePushConstantData push{};
-            push.modelMatrix = gameObject.transform.mat4();
-            push.normalMatrix = gameObject.transform.normalMatrix();
-            push.normalMatrix[3][3] = static_cast<float>(gameObject.textureBinding); // Not ideal, but limited with 128 bytes.
-            vkCmdPushConstants(
-                    frameInfo.commandBuffer,
-                    pipelineLayout,
-                    VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
-                    0,
-                    pushConstantDataSize,
-                    &push);
-            gameObject.model->bind(frameInfo.commandBuffer);
-            gameObject.model->draw(frameInfo.commandBuffer);
+        for (auto &kv: frameInfo.gameObjects) {
+            renderGameObject(frameInfo, kv.second, glm::mat4(1.0f));
         }
     }
 
+    // Render game object method
+    void SimpleRenderSystem::renderGameObject(FrameInfo &frameInfo, LveGameObject &gameObject,
+                                              const glm::mat4 &parentTransform) {
+        if (gameObject.model == nullptr) return;
+
+        SimplePushConstantData push{};
+        push.modelMatrix = gameObject.transform.mat4(parentTransform);
+        push.normalMatrix = gameObject.transform.normalMatrix();
+        push.normalMatrix[3][3] = static_cast<float>(gameObject.textureBinding);
+
+        vkCmdPushConstants(
+                frameInfo.commandBuffer,
+                pipelineLayout,
+                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+                0,
+                pushConstantDataSize,
+                &push);
+
+        gameObject.model->bind(frameInfo.commandBuffer);
+        gameObject.model->draw(frameInfo.commandBuffer);
+
+        for (auto &child: gameObject.getChildren()) {
+            renderGameObject(frameInfo, *child, push.modelMatrix);
+        }
+    }
 }

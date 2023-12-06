@@ -40,7 +40,25 @@ namespace lve {
         glm::vec3 rotation{0.0f};
         AnimationSequence animationSequence;
         float currentTime = 0.0f;
-        glm::mat4 mat4(const glm::mat4& parentTransform = glm::mat4(1.0f));
+        glm::mat4 mat4(const glm::mat4& parentTransform = glm::mat4(1.0f)) {
+            // Calculate the rotation matrices for each axis
+            glm::mat4 rotX = glm::rotate(glm::mat4(1.0f), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+            glm::mat4 rotY = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            glm::mat4 rotZ = glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+            // Combine the rotation matrices
+            glm::mat4 rotMatrix = rotZ * rotY * rotX;
+
+            // Create the translation and scale matrices
+            glm::mat4 transMatrix = glm::translate(glm::mat4(1.0f), translation);
+            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
+
+            // Combine all transformations
+            glm::mat4 localTransform = transMatrix * rotMatrix * scaleMatrix;
+
+            // Combine with the parent transform
+            return parentTransform * localTransform;
+        }
         glm::mat4 normalMatrix();
         bool update(float deltaTime);
     };
