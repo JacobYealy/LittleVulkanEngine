@@ -83,9 +83,7 @@ namespace lve {
         }
     }
 
-    // Render game object method
-    void SimpleRenderSystem::renderGameObject(FrameInfo &frameInfo, LveGameObject &gameObject,
-                                              const glm::mat4 &parentTransform) {
+    void SimpleRenderSystem::renderGameObject(FrameInfo &frameInfo, LveGameObject &gameObject, const glm::mat4 &parentTransform) {
         if (gameObject.model == nullptr) return;
 
         SimplePushConstantData push{};
@@ -104,7 +102,7 @@ namespace lve {
         gameObject.model->bind(frameInfo.commandBuffer);
         gameObject.model->draw(frameInfo.commandBuffer);
 
-        for (auto &child: gameObject.getChildren()) {
+        for (auto &child : gameObject.getChildren()) {
             renderGameObject(frameInfo, *child, push.modelMatrix);
         }
     }

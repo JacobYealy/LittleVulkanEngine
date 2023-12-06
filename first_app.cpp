@@ -267,13 +267,23 @@ namespace lve {
         // Load the asteroid model
         std::shared_ptr<LveModel> asteroidModel = LveModel::createModelFromFile(lveDevice, "../models/asteroid.obj");
 
-        // Create smaller asteroids orbiting around the planet
+        // Get the planet and dragon positions
+        glm::vec3 planetPosition = gameObjects[PLANET_ID].transform.translation;
+        glm::vec3 dragonPosition = gameObjects[DRAGON1_ID].transform.translation; // Using Dragon 1 as reference
+
+        // Calculate a position biased towards the planet
+        float biasTowardsPlanet = 0.75f; // Adjust this value to move closer to the planet
+        glm::vec3 biasedPosition = biasTowardsPlanet * planetPosition + (1.0f - biasTowardsPlanet) * dragonPosition;
+
+        // Create smaller asteroids near the biased position
         for (int i = 0; i < 2; ++i) {
             LveGameObject asteroid = LveGameObject::createGameObject();
             asteroid.model = asteroidModel;
-            asteroid.transform.translation = {1.0f + i * 1.0f, 1.0f + i * 0.5f, 1.0f + i * 0.5f};
-            asteroid.transform.scale = {0.25f, 0.25f, 0.25f};
             asteroid.textureBinding = 5;
+
+            // Position asteroids near the biased position with some offset
+            asteroid.transform.translation = biasedPosition + glm::vec3(1.0f * i, -1.0f * i, -2.5f * i);
+            asteroid.transform.scale = {0.5f, 0.5f, 0.5f};
 
             auto asteroidID = asteroid.getId();
             gameObjects.emplace(asteroidID, std::move(asteroid));
