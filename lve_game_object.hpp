@@ -42,13 +42,11 @@ namespace lve {
         glm::vec3 scale{1.0f, 1.0f, 1.0f};
         glm::vec3 rotation{0.0f};
         AnimationSequence animationSequence; // Animation sequence
-        float currentTime = 0.0f;  // Current time since the animation started
-        // Need to go over base form of each in class.
-        // Need to show standard rotation matrix found in most books.
-        TransformComponent* parent = nullptr; // Pointer to parent object
+        float currentTime = 0.0f;  // Seconds
         glm::mat4 mat4();
         glm::mat4 normalMatrix();
-        bool update(float deltaTime);  // New method to update based on animations
+        bool update(float deltaTime);
+        TransformComponent* parent = nullptr; // Pointer to parent object
     };
 
 
@@ -81,14 +79,10 @@ namespace lve {
         id_t getId() const { return id; }
 
 
-
-
         glm::vec3 color{};
         TransformComponent transform{};
         int32_t textureBinding = -1;
 
-
-        // Optional components
         std::shared_ptr<LveModel> model{};
         std::unique_ptr<PointLightComponent> pointLight = nullptr;
 

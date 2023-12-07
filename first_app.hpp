@@ -1,7 +1,3 @@
-//
-// Created by cdgira on 6/30/2023.
-//
-
 #ifndef VULKANTEST_FIRST_APP_HPP
 #define VULKANTEST_FIRST_APP_HPP
 

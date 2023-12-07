@@ -116,6 +116,8 @@ namespace lve {
             auto& dragon2 = gameObjects.at(DRAGON2_ID);
             auto& planet = gameObjects.at(PLANET_ID);
 
+            // Should add button press here
+
             // Iterates over all stored game objects and updates if they are set to play.
             // kv first is the key in the key value pair, kv second is the lveGameObject in question
             for (auto& kv : gameObjects) {
@@ -238,13 +240,14 @@ namespace lve {
         gameObjects.emplace(sky.getId(),std::move(sky));
 
         // Function to create and configure a planet
-        auto createPlanet = [&](float x, float y, float z, int textureBind, float animDuration) {
+        auto createPlanet = [&](float x, float y, float z, int textureBind, float animDuration, TransformComponent* parentTransform) {
             std::shared_ptr<LveModel> lveModelPlanet = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
             LveGameObject planet = LveGameObject::createGameObject();
             planet.model = lveModelPlanet;
             planet.transform.translation = {x, y, z};
             planet.transform.scale = {1.f, 1.f, 1.f};
             planet.textureBinding = textureBind;
+            planet.transform.parent = parentTransform; // Set the parent's transform
 
             // Planet animation setup
             planet.transform.animationSequence = {
@@ -260,13 +263,12 @@ namespace lve {
             return planet;
         };
 
-        // Create and add the original planet and four new planets
+        // Create and add four new planets as children of the dragons
         std::vector<LveGameObject> planets;
-        planets.push_back(createPlanet(-25.f, 5.f, -3.5f, 2, 10.0f)); // Original planet
-        planets.push_back(createPlanet(-30.f, 8.f, 0.f, 2, 12.0f));    // New planet 1
-        planets.push_back(createPlanet(-20.f, 2.f, -5.f, 2, 8.0f));    // New planet 2
-        planets.push_back(createPlanet(-15.f, 10.f, 3.f, 2, 14.0f));   // New planet 3
-        planets.push_back(createPlanet(-35.f, -2.f, 2.f, 2, 9.0f));    // New planet 4
+        planets.push_back(createPlanet(-30.f, 8.f, 0.f, 2, 12.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 1
+        planets.push_back(createPlanet(-20.f, 2.f, -5.f, 2, 8.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 2
+        planets.push_back(createPlanet(-15.f, 10.f, 3.f, 2, 14.0f, &gameObjects.at(DRAGON2_ID).transform));   // New planet 3
+        planets.push_back(createPlanet(-35.f, -2.f, 2.f, 2, 9.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 4
 
         for (auto& planet : planets) {
             auto planetId = planet.getId();
