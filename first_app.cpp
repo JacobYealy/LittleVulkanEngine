@@ -173,7 +173,7 @@ namespace lve {
  */
     void FirstApp::loadGameObjects() {
 
-        // Load the planet model and set its properties
+// Load the planet model and set its properties for the first planet
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         LveGameObject planet = LveGameObject::createGameObject();
         planet.model = lveModel;
@@ -194,6 +194,7 @@ namespace lve {
 
         PLANET_ID = planet.getId();
         gameObjects.emplace(PLANET_ID, std::move(planet));
+
 
         // Dragon 1
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
@@ -239,8 +240,6 @@ namespace lve {
         gameObjects.emplace(DRAGON2_ID, std::move(dragon2));
 
 
-
-
         // Load the sky model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
         auto sky = LveGameObject::createGameObject();
@@ -250,6 +249,19 @@ namespace lve {
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
 
+        // Load the asteroid model
+        std::shared_ptr<LveModel> asteroidModel = LveModel::createModelFromFile(lveDevice, "../models/asteroid.obj");
+
+        // Create smaller asteroids orbiting around the planet
+        for (int i = 0; i < 2; ++i) {  // 4 asteroids around the planet
+            LveGameObject asteroid = LveGameObject::createGameObject();
+            asteroid.model = asteroidModel;
+            // Position relative to the planet, with some offset
+            asteroid.transform.translation = {-26.f + i * 2.0f, 4.f + i * 1.5f, -3.5f + i * 1.0f};
+            asteroid.transform.scale = {0.25f, 0.25f, 0.25f};  // Smaller size
+            asteroid.textureBinding = 5;
+            gameObjects.emplace(asteroid.getId(), std::move(asteroid));
+        }
 
 
         // Define light colors
