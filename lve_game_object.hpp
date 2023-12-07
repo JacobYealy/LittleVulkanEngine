@@ -38,6 +38,7 @@ namespace lve {
 
 
     struct TransformComponent {
+        bool isPlaying = false; // Flag to indicate if the animation is currently playing
         glm::vec3 translation{};
         glm::vec3 scale{1.0f, 1.0f, 1.0f};
         glm::vec3 rotation{0.0f};

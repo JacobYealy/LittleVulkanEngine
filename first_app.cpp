@@ -27,10 +27,48 @@ namespace lve {
                 .build();
 
         loadGameObjects();
-        // Texture Image loaded in first_app.hpp file.
+
+        // Ensure dragons' animations are not playing initially
+        gameObjects.at(DRAGON1_ID).transform.isPlaying = false;
+        gameObjects.at(DRAGON2_ID).transform.isPlaying = false;
     }
 
     FirstApp::~FirstApp() { }
+
+    void FirstApp::animateDragon(int dragonId, bool& isAnimating, float frameTime) {
+        if (!isAnimating) return; // Do nothing if the dragon should not animate
+
+        static float elapsedTimeDRAGON1 = 0.0f;
+        static float elapsedTimeDRAGON2 = 0.0f;
+        float& elapsedTime = (dragonId == DRAGON1_ID) ? elapsedTimeDRAGON1 : elapsedTimeDRAGON2;
+
+        const float totalAnimationTime = 2.0f; // Same duration as in loadGameObjects
+        elapsedTime += frameTime;
+
+        // Calculate the normalized time (0 to 1 and back to 0)
+        float normalizedTime = (elapsedTime / totalAnimationTime) * 2.0f;
+        if (normalizedTime > 2.0f) normalizedTime = 2.0f; // Clamp to 2.0
+
+        // Determine if we are in the first half or the second half of the animation
+        bool isForward = normalizedTime <= 1.0f;
+
+        // Normalized progress in the current half of the animation
+        float progress = isForward ? normalizedTime : 2.0f - normalizedTime;
+
+        auto& dragon = gameObjects.at(dragonId);
+
+        // Calculate the interpolated translation
+        glm::vec3 startTranslation = dragon.transform.translation; // Original start position
+        glm::vec3 midTranslation = startTranslation + ((dragonId == DRAGON1_ID) ? glm::vec3(-4.0f, -3.0f, 7.0f) : glm::vec3(X_OFFSET, Y_OFFSET, -7.0f));
+
+        dragon.transform.translation = isForward ? glm::mix(startTranslation, midTranslation, progress) : glm::mix(midTranslation, startTranslation, progress);
+
+        // Reset and stop the animation if it's complete
+        if (normalizedTime == 2.0f) {
+            isAnimating = false;
+            elapsedTime = 0.0f;
+        }
+    }
 
 
     /**
@@ -99,7 +137,6 @@ namespace lve {
         auto currentTime = std::chrono::high_resolution_clock::now();
 
         while (!lveWindow.shouldClose()) {
-
             glfwPollEvents();
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
@@ -111,22 +148,24 @@ namespace lve {
             float aspect = lveRenderer.getAspectRatio();
             camera.setPerspectiveProjection(glm::radians(30.f), aspect, 1.1f, 100.f);
 
-            // Check for key presses and toggle the animation for the game objects
-            auto& dragon1 = gameObjects.at(DRAGON1_ID);
-            auto& dragon2 = gameObjects.at(DRAGON2_ID);
-            auto& planet = gameObjects.at(PLANET_ID);
+            // Start Dragon 1 animation on button press
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS) {
+                gameObjects.at(DRAGON1_ID).transform.isPlaying = true;
+            }
 
-            // Should add button press here
+            // Start Dragon 2 animation on button press
+            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS) {
+                gameObjects.at(DRAGON2_ID).transform.isPlaying = true;
+            }
 
-            // Iterates over all stored game objects and updates if they are set to play.
-            // kv first is the key in the key value pair, kv second is the lveGameObject in question
+            // Update all game objects
             for (auto& kv : gameObjects) {
                 auto& obj = kv.second;
-                // Stops the auto playing feature
-// Iterates over all stored game objects and updates their animations
-                for (auto& kv : gameObjects) {
-                    auto& obj = kv.second;
-                    obj.transform.update(frameTime); // Update the animation
+                if (obj.transform.isPlaying) {
+                    bool continuePlaying = obj.transform.update(frameTime);
+                    if (!continuePlaying) {
+                        obj.transform.isPlaying = false; // Stop the animation when it's done
+                    }
                 }
             }
 
