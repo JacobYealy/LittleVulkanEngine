@@ -27,11 +27,7 @@ namespace lve {
         float duration; // In seconds
     };
 
-
     //store the animation sequence for the wizard
-
-
-
 
     struct TransformComponent {
         bool isPlaying = false; // Flag to indicate if the animation is currently playing
@@ -40,8 +36,9 @@ namespace lve {
         glm::vec3 rotation{0.0f};
         AnimationSequence animationSequence;
         float currentTime = 0.0f;
-        glm::mat4 mat4(const glm::mat4& parentTransform = glm::mat4(1.0f));
+        glm::mat4 mat4(const glm::mat4& parentTransform);
         glm::mat4 normalMatrix();
+        //glm::mat4 parentTransform = glm::mat4(1.0f);
         bool update(float deltaTime);
     };
 

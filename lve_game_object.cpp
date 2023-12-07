@@ -1,29 +1,22 @@
 //
 // Created by cdgira on 7/31/2023.
 //
+#include <iostream>
 #include "lve_game_object.hpp"
 
 namespace lve {
 
     glm::mat4 TransformComponent::mat4(const glm::mat4& parentTransform) {
-        // Calculate the rotation matrices for each axis
-        glm::mat4 rotX = glm::rotate(glm::mat4(1.0f), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-        glm::mat4 rotY = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-        glm::mat4 rotZ = glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-
-        // Combine the rotation matrices
-        glm::mat4 rotMatrix = rotZ * rotY * rotX;
-
-        // Create the translation and scale matrices
-        glm::mat4 transMatrix = glm::translate(glm::mat4(1.0f), translation);
+        glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translation);
+        glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        rotationMatrix = glm::rotate(rotationMatrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        rotationMatrix = glm::rotate(rotationMatrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
         glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 
-        // Combine all transformations
-        glm::mat4 localTransform = transMatrix * rotMatrix * scaleMatrix;
-
-        // Combine with the parent transform
+        glm::mat4 localTransform = translationMatrix * rotationMatrix * scaleMatrix;
         return parentTransform * localTransform;
     }
+
 
 
     glm::mat4 TransformComponent::normalMatrix(){
@@ -100,16 +93,17 @@ namespace lve {
             scale = glm::mix(prevFrame->scale, nextFrame->scale, alpha);
         }
         return true;
-
     }
 
 
 
     void LveGameObject::setParent(LveGameObject* newParent) {
+        std::cout << "Setting parent ID: " << (newParent ? newParent->id : -1) << " for child ID: " << this->id << std::endl;
         parent = newParent;
     }
 
     void LveGameObject::addChild(std::unique_ptr<LveGameObject> child) {
+        std::cout << "Adding child to parent ID: " << this->id << std::endl;
         child->setParent(this);
         children.push_back(std::move(child));
     }

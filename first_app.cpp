@@ -1,6 +1,3 @@
-//
-// Created by cdgira on 6/30/2023.
-//
 #include "first_app.hpp"
 
 #include "keyboard_movement_controller.hpp"
@@ -282,11 +279,13 @@ namespace lve {
             asteroid.transform.translation = biasedPosition + glm::vec3(1.0f * i, -1.0f * i, -2.5f * i);
             asteroid.transform.scale = {0.5f, 0.5f, 0.5f};
 
+            // After creating the asteroid
             auto asteroidID = asteroid.getId();
             gameObjects.emplace(asteroidID, std::move(asteroid));
 
             // Set the planet as the parent of the asteroid
             gameObjects[asteroidID].setParent(&gameObjects[PLANET_ID]);
+
         }
 
 

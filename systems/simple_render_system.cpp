@@ -66,7 +66,6 @@ namespace lve {
         );
     }
 
-    // Render method
     void SimpleRenderSystem::render(FrameInfo &frameInfo) {
         lvePipeline->bind(frameInfo.commandBuffer);
 
@@ -79,7 +78,7 @@ namespace lve {
                 0, nullptr);
 
         for (auto &kv: frameInfo.gameObjects) {
-            renderGameObject(frameInfo, kv.second, glm::mat4(1.0f));
+            renderGameObject(frameInfo, kv.second, // Use parent to the parentTransform);
         }
     }
 
@@ -104,6 +103,14 @@ namespace lve {
 
         for (auto &child : gameObject.getChildren()) {
             renderGameObject(frameInfo, *child, push.modelMatrix);
+        }
+        glm::mat4 modelMatrix = push.modelMatrix;
+        std::cout << "Rendering object ID: " << gameObject.getId() << ", Model Matrix:\n";
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                std::cout << modelMatrix[i][j] << " ";
+            }
+            std::cout << std::endl;
         }
     }
 }
