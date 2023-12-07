@@ -298,7 +298,7 @@ namespace lve {
         // Define light positions and their corresponding colors
         std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
                 // Blue dragon
-                {0, {-27.5f, 6.5f, -0.5f}},  // Chin
+                {0, {-27.5f, 12.5f, -0.5f}},  // Chin
                 {0, {-26.5f, 7.f, -2.5f}},  // Eye
                 {0, {-27.f, 3.f, -2.5f}},   // Tail
                 {0, {-28.f, 6.5f, -1.5f}},   // Left arm
@@ -308,7 +308,7 @@ namespace lve {
                 {1, {-23.8f, 3.f, -2.f}},          // Left eye
                 {1, {-22.f, 4.f, -1.5f}},          // Under chin
                 {1, {-24.5f, 2.f, 1.8f}},          // Left arm
-                {1, {-23.f, 6.f, 3.f}},           // Tail
+                {1, {-25.f, 6.f, 3.f}},           // Tail
 
                 // Planet
                 {2, {-26.f, 5.f, -4.5f}},
