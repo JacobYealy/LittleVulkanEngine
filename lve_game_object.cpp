@@ -1,6 +1,3 @@
-//
-// Created by cdgira on 7/31/2023.
-//
 #include <iostream>
 #include "lve_game_object.hpp"
 

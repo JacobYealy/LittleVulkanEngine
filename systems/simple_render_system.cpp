@@ -1,6 +1,3 @@
-//
-// Created by cdgira on 7/19/2023.
-//
 #include "simple_render_system.hpp"
 
 #define GLM_FORCE_RADIANS
@@ -77,16 +74,19 @@ namespace lve {
                 &frameInfo.globalDescriptorSet,
                 0, nullptr);
 
+        glm::mat4 identityMatrix = glm::mat4(1.0f); // Identity matrix for the root transform
         for (auto &kv: frameInfo.gameObjects) {
-            renderGameObject(frameInfo, kv.second, // Use parent to the parentTransform);
+            renderGameObject(frameInfo, kv.second, identityMatrix);
         }
     }
 
     void SimpleRenderSystem::renderGameObject(FrameInfo &frameInfo, LveGameObject &gameObject, const glm::mat4 &parentTransform) {
         if (gameObject.model == nullptr) return;
 
+        glm::mat4 currentTransform = gameObject.transform.mat4(parentTransform);
+
         SimplePushConstantData push{};
-        push.modelMatrix = gameObject.transform.mat4(parentTransform);
+        push.modelMatrix = currentTransform;
         push.normalMatrix = gameObject.transform.normalMatrix();
         push.normalMatrix[3][3] = static_cast<float>(gameObject.textureBinding);
 
@@ -102,15 +102,7 @@ namespace lve {
         gameObject.model->draw(frameInfo.commandBuffer);
 
         for (auto &child : gameObject.getChildren()) {
-            renderGameObject(frameInfo, *child, push.modelMatrix);
-        }
-        glm::mat4 modelMatrix = push.modelMatrix;
-        std::cout << "Rendering object ID: " << gameObject.getId() << ", Model Matrix:\n";
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                std::cout << modelMatrix[i][j] << " ";
-            }
-            std::cout << std::endl;
+            renderGameObject(frameInfo, *child, currentTransform); // Pass the accumulated transform
         }
     }
 }
