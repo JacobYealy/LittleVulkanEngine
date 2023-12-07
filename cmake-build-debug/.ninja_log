@@ -83,3 +83,10 @@
 30	810	1701981125091261300	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o	e3a77b187188bbed
 31	926	1701981125187261500	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o	566a4cca06ba4d24
 30	1247	1701981125463261900	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o	fb37608c3f762253
+57	734	1701982503267629000	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/keyboard_movement_controller.cpp.o	3c3de17e5768388b
+59	761	1701982503295629100	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/lve_game_object.cpp.o	58d958330cd2ac01
+56	850	1701982503383629400	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/main.cpp.o	e3a77b187188bbed
+58	869	1701982503387629400	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/simple_render_system.cpp.o	b57e3747eb585bfd
+59	988	1701982503487629800	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/systems/point_light_system.cpp.o	566a4cca06ba4d24
+57	1317	1701982503779630900	CMakeFiles/VulkanTest_3D_Light_Texture_V31_Plus.dir/first_app.cpp.o	fb37608c3f762253
+1318	1820	1701982504387633300	VulkanTest_3D_Light_Texture_V31_Plus	44abfd3e23d22082

@@ -116,29 +116,15 @@ namespace lve {
             auto& dragon2 = gameObjects.at(DRAGON2_ID);
             auto& planet = gameObjects.at(PLANET_ID);
 
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_1) == GLFW_PRESS) {
-                dragon1.transform.currentTime = 0.0f; // Restart dragon1 animation
-                dragon1.transform.isPlaying = true;
-            }
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_2) == GLFW_PRESS) {
-                dragon2.transform.currentTime = 0.0f; // Restart dragon2 animation
-                dragon2.transform.isPlaying = true;
-            }
-            if (glfwGetKey(lveWindow.getGLFWwindow(), GLFW_KEY_3) == GLFW_PRESS) {
-                planet.transform.currentTime = 0.0f; // Restart planet animation
-                planet.transform.isPlaying = true;
-            }
-
             // Iterates over all stored game objects and updates if they are set to play.
             // kv first is the key in the key value pair, kv second is the lveGameObject in question
             for (auto& kv : gameObjects) {
                 auto& obj = kv.second;
                 // Stops the auto playing feature
-                if (obj.transform.isPlaying) {
-                    bool continuePlaying = obj.transform.update(frameTime);
-                    if (!continuePlaying) {
-                        obj.transform.isPlaying = false; // Stop the animation when it's done
-                    }
+// Iterates over all stored game objects and updates their animations
+                for (auto& kv : gameObjects) {
+                    auto& obj = kv.second;
+                    obj.transform.update(frameTime); // Update the animation
                 }
             }
 
