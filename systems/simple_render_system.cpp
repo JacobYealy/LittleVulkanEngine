@@ -1,3 +1,6 @@
+//
+// Created by cdgira on 7/19/2023.
+//
 #include "simple_render_system.hpp"
 
 #define GLM_FORCE_RADIANS
@@ -11,20 +14,25 @@
 
 namespace lve {
 
-    // Constructor
-    SimpleRenderSystem::SimpleRenderSystem(LveDevice &device, VkRenderPass renderPass,
-                                           VkDescriptorSetLayout globalSetLayout)
-            : lveDevice{device} {
+    struct SimplePushConstantData {
+        glm::mat4 modelMatrix{1.f};
+        glm::mat4 normalMatrix{1.f}; // Is really just a 3x3 matrix, so we will use the extra values to send data.
+        // normalMatrix[3][3] will be the textureBinding;
+    };
+
+    // 16 bytes for offset, 12 bytes for color - aligns to 16 bytes.
+    // Each new value must end or begin on a 4 byte boundary.
+    uint32_t pushConstantDataSize = sizeof(SimplePushConstantData); //16 + 12;
+
+    SimpleRenderSystem::SimpleRenderSystem(LveDevice &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : lveDevice{device} {
         createPipelineLayout(globalSetLayout);
         createPipeline(renderPass);
     }
 
-    // Destructor
     SimpleRenderSystem::~SimpleRenderSystem() {
         vkDestroyPipelineLayout(lveDevice.device(), pipelineLayout, nullptr);
     }
 
-    // Create pipeline layout
     void SimpleRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
         VkPushConstantRange pushConstantRange{};
         pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -46,9 +54,8 @@ namespace lve {
         }
     }
 
-    // Create pipeline
     void SimpleRenderSystem::createPipeline(VkRenderPass renderPass) {
-        assert(pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
+        assert (pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
         PipelineConfigInfo pipelineConfig{};
         LvePipeline::defaultPipelineConfigInfo(pipelineConfig);
@@ -74,35 +81,23 @@ namespace lve {
                 &frameInfo.globalDescriptorSet,
                 0, nullptr);
 
-        glm::mat4 identityMatrix = glm::mat4(1.0f); // Identity matrix for the root transform
-        for (auto &kv: frameInfo.gameObjects) {
-            renderGameObject(frameInfo, kv.second, identityMatrix);
+        for (auto &kv : frameInfo.gameObjects) {
+            auto &gameObject = kv.second;
+            if (gameObject.model == nullptr) continue;
+            SimplePushConstantData push{};
+            push.modelMatrix = gameObject.transform.mat4();
+            push.normalMatrix = gameObject.transform.normalMatrix();
+            push.normalMatrix[3][3] = static_cast<float>(gameObject.textureBinding); // Not ideal, but limited with 128 bytes.
+            vkCmdPushConstants(
+                    frameInfo.commandBuffer,
+                    pipelineLayout,
+                    VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+                    0,
+                    pushConstantDataSize,
+                    &push);
+            gameObject.model->bind(frameInfo.commandBuffer);
+            gameObject.model->draw(frameInfo.commandBuffer);
         }
     }
 
-    void SimpleRenderSystem::renderGameObject(FrameInfo &frameInfo, LveGameObject &gameObject, const glm::mat4 &parentTransform) {
-        if (gameObject.model == nullptr) return;
-
-        glm::mat4 currentTransform = gameObject.transform.mat4(parentTransform);
-
-        SimplePushConstantData push{};
-        push.modelMatrix = currentTransform;
-        push.normalMatrix = gameObject.transform.normalMatrix();
-        push.normalMatrix[3][3] = static_cast<float>(gameObject.textureBinding);
-
-        vkCmdPushConstants(
-                frameInfo.commandBuffer,
-                pipelineLayout,
-                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
-                0,
-                pushConstantDataSize,
-                &push);
-
-        gameObject.model->bind(frameInfo.commandBuffer);
-        gameObject.model->draw(frameInfo.commandBuffer);
-
-        for (auto &child : gameObject.getChildren()) {
-            renderGameObject(frameInfo, *child, currentTransform); // Pass the accumulated transform
-        }
-    }
 }
