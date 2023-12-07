@@ -35,49 +35,23 @@ namespace lve {
 
     FirstApp::~FirstApp() { }
 
-    void FirstApp::animateDragon(int dragonId, bool& isAnimating, float frameTime) {
-        if (!isAnimating) return; // Do nothing if the dragon should not animate
-
-        static float elapsedTimeDRAGON1 = 0.0f;
-        static float elapsedTimeDRAGON2 = 0.0f;
-        float& elapsedTime = (dragonId == DRAGON1_ID) ? elapsedTimeDRAGON1 : elapsedTimeDRAGON2;
-
-        const float totalAnimationTime = 2.0f; // Same duration as in loadGameObjects
-        elapsedTime += frameTime;
-
-        // Calculate the normalized time (0 to 1 and back to 0)
-        float normalizedTime = (elapsedTime / totalAnimationTime) * 2.0f;
-        if (normalizedTime > 2.0f) normalizedTime = 2.0f; // Clamp to 2.0
-
-        // Determine if we are in the first half or the second half of the animation
-        bool isForward = normalizedTime <= 1.0f;
-
-        // Normalized progress in the current half of the animation
-        float progress = isForward ? normalizedTime : 2.0f - normalizedTime;
-
-        auto& dragon = gameObjects.at(dragonId);
-
-        // Calculate the interpolated translation
-        glm::vec3 startTranslation = dragon.transform.translation; // Original start position
-        glm::vec3 midTranslation = startTranslation + ((dragonId == DRAGON1_ID) ? glm::vec3(-4.0f, -3.0f, 7.0f) : glm::vec3(X_OFFSET, Y_OFFSET, -7.0f));
-
-        dragon.transform.translation = isForward ? glm::mix(startTranslation, midTranslation, progress) : glm::mix(midTranslation, startTranslation, progress);
-
-        // Reset and stop the animation if it's complete
-        if (normalizedTime == 2.0f) {
-            isAnimating = false;
-            elapsedTime = 0.0f;
-        }
-    }
-
 
     /**
  * @brief Main rendering loop of the application.
  *
- * This function handles:
- * - Initialization of uniform buffers and descriptor sets
- * - Creation and setup of render systems and camera
- * - Main application loop for updating and rendering the scene
+ * This function is responsible for the core operation of the application. It handles:
+ * - Initialization of uniform buffers and descriptor sets to manage the shader inputs.
+ * - Setup and maintenance of render systems for drawing the scene and the camera for viewing.
+ * - Execution of the main application loop, which includes:
+ *   - Processing input events.
+ *   - Updating the scene based on user interactions, such as starting animations for dragons on specific key presses.
+ *   - Managing the update cycle of all game objects, including dragons, planets, and other entities.
+ *   - Performing necessary calculations for camera perspective and aspect ratio.
+ *   - Initiating the rendering process for each frame, utilizing Vulkan command buffers.
+ *   - Handling frame synchronization and ensuring smooth rendering operations.
+ *
+ * The function enables interactive animations where the dragons and their child planets can be animated based on user input.
+ * It also ensures that all objects in the scene are updated and rendered correctly in each frame.
  */
     void FirstApp::run() {
 
@@ -197,9 +171,18 @@ namespace lve {
 
 /**
  * Loads all the game objects required for the scene.
- * Describes the scene of dueling dragons.
- * This includes the Dragon, Planet, and Sky models,
- * as well as the configuration for point lights used in the scene.
+ * This scene features dueling dragons, each with their own set of orbiting planets.
+ * The setup includes:
+ * - Two dragons, each with unique animations and textures.
+ * - A series of rotating planets, some of which are parented to the dragons, creating a dynamic orbit effect.
+ * - A background sky model to complete the scene.
+ * - Configurations for various point lights to enhance the visual experience.
+ *
+ * The function handles the following:
+ * - Loading and setting up models for the dragons, planets, and sky.
+ * - Configuring animations for the dragons and the rotating planets.
+ * - Assigning textures and parenting certain planets to the dragons.
+ * - Setting up point lights with specified positions and colors.
  */
     void FirstApp::loadGameObjects() {
 
@@ -220,7 +203,7 @@ namespace lve {
                         // End frame - full rotation over 10 seconds
                         {planet.transform.translation, glm::vec3(0.0f, 0.0f, glm::two_pi<float>()), planet.transform.scale, 10.0f},
                 },
-                10.0f // Duration of the animation in seconds
+                100.0f // Duration of the animation in seconds
         };
 
         PLANET_ID = planet.getId();
@@ -293,7 +276,7 @@ namespace lve {
             planet.transform.animationSequence = {
                     {
                             // Start frame
-                            {planet.transform.translation, glm::vec3(0.0f), planet.transform.scale, 0.0f},
+                            {planet.transform.translation, glm::vec3(0.0f), planet.transform.scale, 0.1f},
                             // End frame - full rotation over animDuration seconds
                             {planet.transform.translation, glm::vec3(0.0f, 0.0f, glm::two_pi<float>()), planet.transform.scale, animDuration},
                     },
@@ -305,10 +288,12 @@ namespace lve {
 
         // Create and add four new planets as children of the dragons
         std::vector<LveGameObject> planets;
-        planets.push_back(createPlanet(-15.f, 8.f, 0.f, 2, 12.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 1
+        planets.push_back(createPlanet(-5.f, 8.f, 0.f, 2, 12.0f, &gameObjects.at(DRAGON1_ID).transform));    // Top right
         planets.push_back(createPlanet(-5.f, 2.f, -5.f, 2, 8.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 2
-        planets.push_back(createPlanet(-5.f, 10.f, 3.f, 2, 14.0f, &gameObjects.at(DRAGON2_ID).transform));   // New planet 3
-        planets.push_back(createPlanet(-10.f, -2.f, 2.f, 2, 9.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 4
+        planets.push_back(createPlanet(-5.f, 6.f, 2.f, 2, 9.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 3
+        planets.push_back(createPlanet(-5.f, 10.f, 3.f, 2, 14.0f, &gameObjects.at(DRAGON2_ID).transform));   // New planet 4
+        planets.push_back(createPlanet(-5.f, 6.f, 7.f, 2, 12.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 5
+        planets.push_back(createPlanet(-5.f, 4.f, 10.f, 2, 9.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 6
 
         for (auto& planet : planets) {
             auto planetId = planet.getId();
@@ -344,7 +329,7 @@ namespace lve {
 
         // Instantiate the lights with the given positions and colors
         for (const auto& [colorIndex, position] : lightPositionsAndColors) {
-            auto pointLight = LveGameObject::makePointLight(30.f);
+            auto pointLight = LveGameObject::makePointLight(50.f);
             pointLight.color = lightColorsMap[colorIndex];
             pointLight.transform.translation = position;
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));

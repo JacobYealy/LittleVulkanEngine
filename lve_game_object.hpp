@@ -1,41 +1,24 @@
-//
-// Created by cdgira on 7/13/2023.
-//
-
-
 #ifndef VULKANTEST_LVE_GAME_OBJECT_HPP
 #define VULKANTEST_LVE_GAME_OBJECT_HPP
-
 
 #include "lve_model.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 #include <unordered_map>
 
-
 namespace lve {
 
-
-    // Animation Frame Structure
     struct AnimationFrame {
         glm::vec3 translation;
         glm::vec3 rotation;
         glm::vec3 scale;
-        float timeStamp; // Time stamp in seconds
+        float timeStamp; // Seconds
     };
 
-
-    // Animation Sequence Structure
     struct AnimationSequence {
-        std::vector<AnimationFrame> Frames; // Vector of frames
-        float duration; // Duration of the animation in seconds
+        std::vector<AnimationFrame> Frames;
+        float duration; // Duration in seconds
     };
-
-
-    //store the animation sequence for the wizard
-
-
-
 
     struct TransformComponent {
         bool isPlaying = false; // Flag to indicate if the animation is currently playing
@@ -47,7 +30,7 @@ namespace lve {
         glm::mat4 mat4();
         glm::mat4 normalMatrix();
         bool update(float deltaTime);
-        TransformComponent* parent = nullptr; // Pointer to parent object
+        TransformComponent* parent = nullptr; // Pointer to parent
     };
 
 
@@ -93,7 +76,6 @@ namespace lve {
         id_t id;
     };
 }
-
 
 #endif //VULKANTEST_LVE_GAME_OBJECT_HPP
 

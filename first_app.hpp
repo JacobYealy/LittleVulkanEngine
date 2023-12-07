@@ -48,12 +48,6 @@ namespace lve {
         glm::vec3 dragon2TargetRotation;
         glm::vec3 dragon2OriginalScale, dragon2TargetScale;
 
-        // Animation control flags for dragons
-        bool isDragon1Animating = false;
-        bool isDragon2Animating = false;
-
-
-
         void loadGameObjects();
         void animateDragon(int dragonId, bool& isAnimating, float frameTime);
 
