@@ -32,7 +32,7 @@ namespace lve {
         void run();
 
     private:
-        int DRAGON1_ID, DRAGON2_ID, PLANET_ID, SECOND_PLANET_ID;
+        int DRAGON1_ID, DRAGON2_ID, PLANET_ID;
 
         // Planet animation vars
         glm::vec3 planetOriginalScale;
@@ -73,9 +73,6 @@ namespace lve {
 
         //Texture for sky
         std::shared_ptr<LveImage> skyTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/sky.png");
-
-        //Texture for asteroids
-        std::shared_ptr<LveImage> holeTextureImage = LveImage::createImageFromFile(lveDevice, "../textures/red_asteroid.jpg");
 
         std::vector<std::shared_ptr<LveImage>> textureImages; // For maintaining the list of textures
 

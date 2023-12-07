@@ -1,6 +1,3 @@
-//
-// Created by cdgira on 6/30/2023.
-//
 #include "first_app.hpp"
 
 #include "keyboard_movement_controller.hpp"
@@ -176,7 +173,7 @@ namespace lve {
  */
     void FirstApp::loadGameObjects() {
 
-        // Load the planet model and set its properties for the first planet
+        // Load the planet model and set its properties
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         LveGameObject planet = LveGameObject::createGameObject();
         planet.model = lveModel;
@@ -197,19 +194,6 @@ namespace lve {
 
         PLANET_ID = planet.getId();
         gameObjects.emplace(PLANET_ID, std::move(planet));
-        // Reference to the planet object
-
-
-        // Create and set up the second planet
-        LveGameObject secondPlanet = LveGameObject::createGameObject();
-        secondPlanet.model = lveModel; // Reusing the model of the first planet
-        secondPlanet.transform.translation = {-25.f, 5.f, 20.5f}; // Same position as the first planet
-        secondPlanet.transform.scale = {20.f, 20.f, 20.f}; // Larger scale
-        secondPlanet.textureBinding = 2; // Assign a texture binding as needed
-
-        SECOND_PLANET_ID = secondPlanet.getId();
-        gameObjects.emplace(SECOND_PLANET_ID, std::move(secondPlanet));
-
 
         // Dragon 1
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/dragon.obj");
@@ -255,6 +239,8 @@ namespace lve {
         gameObjects.emplace(DRAGON2_ID, std::move(dragon2));
 
 
+
+
         // Load the sky model and set its properties
         lveModel = LveModel::createModelFromFile(lveDevice, "../models/sky.obj");
         auto sky = LveGameObject::createGameObject();
@@ -264,33 +250,6 @@ namespace lve {
         sky.textureBinding = 4;
         gameObjects.emplace(sky.getId(),std::move(sky));
 
-        // Load the asteroid model
-        std::shared_ptr<LveModel> asteroidModel = LveModel::createModelFromFile(lveDevice, "../models/asteroid.obj");
-
-        // Get the planet and dragon positions
-        glm::vec3 planetPosition = gameObjects[PLANET_ID].transform.translation;
-        glm::vec3 dragonPosition = gameObjects[DRAGON1_ID].transform.translation; // Using Dragon 1 as reference
-
-        // Calculate a position biased towards the planet
-        float biasTowardsPlanet = 0.75f; // Adjust this value to move closer to the planet
-        glm::vec3 biasedPosition = biasTowardsPlanet * planetPosition + (1.0f - biasTowardsPlanet) * dragonPosition;
-
-        // Create smaller asteroids near the biased position
-        for (int i = 0; i < 2; ++i) {
-            LveGameObject asteroid = LveGameObject::createGameObject();
-            asteroid.model = asteroidModel;
-            asteroid.textureBinding = 5;
-
-            // Position asteroids near the biased position with some offset
-            asteroid.transform.translation = biasedPosition + glm::vec3(1.0f * i, -1.0f * i, -2.5f * i);
-            asteroid.transform.scale = {0.5f, 0.5f, 0.5f};
-
-            auto asteroidID = asteroid.getId();
-            gameObjects.emplace(asteroidID, std::move(asteroid));
-
-            // Set the planet as the parent of the asteroid
-            gameObjects[asteroidID].setParent(&gameObjects[PLANET_ID]);
-        }
 
 
         // Define light colors
@@ -313,9 +272,7 @@ namespace lve {
                 {1, {-23.8f, 3.f, -2.f}},          // Left eye
                 {1, {-22.f, 4.f, -1.5f}},          // Under chin
                 {1, {-24.5f, 2.f, 1.8f}},          // Left arm
-
-
-                {1, {-5.f, -0.f, 25.5f}},           // Tail
+                {1, {-23.f, 6.f, 3.f}},           // Tail
 
                 // Planet
                 {2, {-26.f, 5.f, -4.5f}},
@@ -328,5 +285,7 @@ namespace lve {
             pointLight.transform.translation = position;
             gameObjects.emplace(pointLight.getId(), std::move(pointLight));
         }
+
+
     }
 }
