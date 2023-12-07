@@ -207,6 +207,7 @@ namespace lve {
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "../models/venus.obj");
         LveGameObject planet = LveGameObject::createGameObject();
         planet.model = lveModel;
+        planet.transform.isPlaying = true;
         planet.transform.translation = {-25.f, 5.f, -3.5f};
         planet.transform.scale = {1.f, 1.f, 1.f};
         planet.textureBinding = 2;
@@ -296,7 +297,7 @@ namespace lve {
                             // End frame - full rotation over animDuration seconds
                             {planet.transform.translation, glm::vec3(0.0f, 0.0f, glm::two_pi<float>()), planet.transform.scale, animDuration},
                     },
-                    animDuration // Duration of the animation in seconds
+                    animDuration * 100 // Duration of the animation in seconds
             };
 
             return planet;
@@ -304,10 +305,10 @@ namespace lve {
 
         // Create and add four new planets as children of the dragons
         std::vector<LveGameObject> planets;
-        planets.push_back(createPlanet(-30.f, 8.f, 0.f, 2, 12.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 1
-        planets.push_back(createPlanet(-20.f, 2.f, -5.f, 2, 8.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 2
-        planets.push_back(createPlanet(-15.f, 10.f, 3.f, 2, 14.0f, &gameObjects.at(DRAGON2_ID).transform));   // New planet 3
-        planets.push_back(createPlanet(-35.f, -2.f, 2.f, 2, 9.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 4
+        planets.push_back(createPlanet(-15.f, 8.f, 0.f, 2, 12.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 1
+        planets.push_back(createPlanet(-5.f, 2.f, -5.f, 2, 8.0f, &gameObjects.at(DRAGON1_ID).transform));    // New planet 2
+        planets.push_back(createPlanet(-5.f, 10.f, 3.f, 2, 14.0f, &gameObjects.at(DRAGON2_ID).transform));   // New planet 3
+        planets.push_back(createPlanet(-10.f, -2.f, 2.f, 2, 9.0f, &gameObjects.at(DRAGON2_ID).transform));    // New planet 4
 
         for (auto& planet : planets) {
             auto planetId = planet.getId();
@@ -325,7 +326,7 @@ namespace lve {
         // Define light positions and their corresponding colors
         std::vector<std::pair<int, glm::vec3>> lightPositionsAndColors = {
                 // Blue dragon
-                {0, {-27.5f, 12.5f, -0.5f}},  // Chin
+                {0, {-27.5f, 6.5f, -0.5f}},  // Chin
                 {0, {-26.5f, 7.f, -2.5f}},  // Eye
                 {0, {-27.f, 3.f, -2.5f}},   // Tail
                 {0, {-28.f, 6.5f, -1.5f}},   // Left arm
@@ -335,7 +336,7 @@ namespace lve {
                 {1, {-23.8f, 3.f, -2.f}},          // Left eye
                 {1, {-22.f, 4.f, -1.5f}},          // Under chin
                 {1, {-24.5f, 2.f, 1.8f}},          // Left arm
-                {1, {-25.f, 6.f, 3.f}},           // Tail
+                {1, {-23.f, 6.f, 3.f}},           // Tail
 
                 // Planet
                 {2, {-26.f, 5.f, -4.5f}},
